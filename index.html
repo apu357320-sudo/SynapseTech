@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIGSM - Hospital de Clínicas</title>
+  </head>
+  <body>
+    <!-- Encabezado institucional con título del sistema y espacio para el logotipo -->
+    <header>
+      <div>
+        <img src="" alt="Logotipo institucional del Hospital de Clínicas" />
+      </div>
+      <div>
+        <h1>S.I.G.S.M. - Sistema Informático de Gestión de Servicios Médicos</h1>
+        <p>Hospital de Clínicas - UTU 2026</p>
+      </div>
+    </header>
+
+    <main>
+      <!-- Sección principal de acceso para funcionarios -->
+      <section aria-labelledby="titulo-login">
+        <h2 id="titulo-login">Inicio de Sesión</h2>
+        <p>Acceso exclusivo para funcionarios del Hospital de Clínicas.</p>
+
+        <form action="#" method="post">
+          <label for="usuario">Usuario/C.I.</label>
+          <input type="text" id="usuario" name="usuario" autocomplete="username" />
+
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" name="password" autocomplete="current-password" />
+
+          <button type="submit">Ingreso</button>
+        </form>
+      </section>
+
+      <!-- Sección informativa para pacientes con acceso rápido mediante código QR -->
+      <section aria-labelledby="titulo-pacientes">
+        <h2 id="titulo-pacientes">Acceso para pacientes</h2>
+        <p>
+          Escaneá el código QR para consultar documentación médica o completar
+          encuestas de satisfacción.
+        </p>
+
+        <div>
+          <img src="" alt="Código QR de acceso para pacientes" />
+        </div>
+
+        <p>Consulta rápida, segura y orientada a la atención institucional.</p>
+      </section>
+    </main>
+
+    <!-- Pie de página institucional -->
+    <footer>
+      <p>Hospital de Clínicas</p>
+      <p>Instituto Tecnológico Superior del Profesorado - ITSP</p>
+    </footer>
+  </body>
+</html>
