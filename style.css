@@ -10,11 +10,19 @@ header {
 }
 
 .logo {
-  position: absolute;   
-  top: 10px;
-  left: 10px;
   width: 200px;
   height: auto;
+}
+
+header button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  padding: 0;
+  line-height: 0;
+  cursor: pointer;
 }
 
 header h1 {
