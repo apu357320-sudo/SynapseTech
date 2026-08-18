@@ -3,17 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="traslado_form.css">
     <title>Nuevo Traslado - Hospital de Clínicas</title>
-
   </head>
   <body>
     <header>
-      <div>
-        <button type="button" onclick="location.reload()" aria-label="Recargar página" class="boton-logo">
-          <img src="https://hc.edu.uy/images/imagenesarticulos/Logo_Hc.jpg" alt="Logo HC" class="logo">
-        </button>
-      </div>
+      <button type="button" onclick="location.reload()" class="boton-logo">
+        <img src="https://hc.edu.uy/images/imagenesarticulos/Logo_Hc.jpg" alt="Logo HC" class="logo">
+      </button>
       <div>
         <h1>S.I.G.S.M. - Sistema Informático de Gestión de Servicios Médicos</h1>
         <p>Hospital de Clínicas - UTU 2026</p>
@@ -21,18 +18,18 @@
     </header>
 
     <main>
-      <section class="tarjeta" aria-labelledby="titulo-traslado">
-        <h2 id="titulo-traslado">Nuevo Traslado de Ambulancia</h2>
+      <section class="tarjeta">
+        <h2>Nuevo Traslado de Ambulancia</h2>
 
-        <form id="trasladoForm" novalidate>
-          <fieldset style="border:none;padding:0;margin:0">
-            <legend style="font-weight:700;margin-bottom:8px">Datos del Paciente</legend>
+        <form id="trasladoForm">
+          <fieldset>
+            <legend>Datos del Paciente</legend>
 
             <div class="form-grid">
               <div class="full">
                 <label for="ci">Cédula (CI)</label>
                 <div class="ci-row">
-                  <input type="text" id="ci" name="ci" placeholder="Ej: 12345678" aria-describedby="ciError" />
+                  <input type="text" id="ci" name="ci" placeholder="Ej: 12345678" />
                   <button type="button" id="buscarCi" class="boton-secundario">Buscar</button>
                 </div>
                 <span id="ciError" class="error" style="display:none"></span>
@@ -52,8 +49,8 @@
             </div>
           </fieldset>
 
-          <fieldset style="border:none;padding:0;margin-top:18px">
-            <legend style="font-weight:700;margin-bottom:8px">Datos del Traslado</legend>
+          <fieldset class="traslado-datos">
+            <legend>Datos del Traslado</legend>
 
             <div class="form-grid">
               <div>
@@ -115,7 +112,7 @@
             </div>
           </fieldset>
 
-          <div style="margin-top:20px; display:flex; gap:12px; justify-content:flex-end; flex-wrap:wrap;">
+          <div class="botones-contenedor">
             <button type="button" id="cancelar" class="boton-secundario">Cancelar</button>
             <button type="button" id="registrar" class="boton-principal">Registrar Traslado</button>
           </div>
@@ -123,7 +120,7 @@
       </section>
     </main>
 
-    <footer style="text-align:center;">
+    <footer>
       <p>Hospital de Clínicas</p>
       <p>Instituto Tecnológico Superior de Paysandú - ITSP</p>
     </footer>
