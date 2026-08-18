@@ -21,8 +21,6 @@ header {
 }
 
 .boton-logo {
-  background: none;
-  border: none;
   cursor: pointer;
   padding: 0;
 }
@@ -91,7 +89,6 @@ input {
 }
 
 input:focus {
-  outline: none;
   border-color: #0057a3;
 }
 
@@ -100,7 +97,6 @@ input:focus {
   padding: 12px;
   background: linear-gradient(135deg, #0072c6, #0057a3);
   color: white;
-  border: none;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
@@ -124,10 +120,7 @@ input:focus {
 .boton-secundario {
   margin-top: 12px;
   padding: 8px;
-  background: none;
-  border: none;
   color: #0057a3;
-  text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
@@ -197,12 +190,6 @@ footer p {
   }
 }
 
-
-
-/* ==========================================================
-   PANEL DE FUNCIONARIOS
-   ========================================================== */
-
 .barra-usuario {
   max-width: 900px;
   margin: 20px auto 0;
@@ -235,7 +222,6 @@ footer p {
 }
 
 .tarjeta-accion {
-  text-decoration: none;
   color: inherit;
   text-align: left;
   display: flex;
