@@ -196,3 +196,16 @@ footer p {
     max-width: 320px;
   }
 }
+
+traslado_form.html {
+.tarjeta { max-width: 700px; width: 100%; }
+      .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .full { grid-column: 1 / -1; }
+      .ci-row { display: flex; gap: 8px; align-items: center; }
+      .ci-row input { flex: 1; }
+      .error { color: #c62828; font-size: 0.9rem; margin-top: 6px; display: block; }
+      @media (max-width: 600px) {
+        .form-grid { grid-template-columns: 1fr; }
+        .ci-row { flex-direction: column; align-items: stretch; }
+      }
+    }

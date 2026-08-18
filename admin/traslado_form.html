@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../estilo/style.css">
+    <title>Nuevo Traslado - Hospital de Clínicas</title>
+
+  </head>
+  <body>
+    <header>
+      <div>
+        <button type="button" onclick="location.reload()" aria-label="Recargar página" class="boton-logo">
+          <img src="https://hc.edu.uy/images/imagenesarticulos/Logo_Hc.jpg" alt="Logo HC" class="logo">
+        </button>
+      </div>
+      <div>
+        <h1>S.I.G.S.M. - Sistema Informático de Gestión de Servicios Médicos</h1>
+        <p>Hospital de Clínicas - UTU 2026</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="tarjeta" aria-labelledby="titulo-traslado">
+        <h2 id="titulo-traslado">Nuevo Traslado de Ambulancia</h2>
+
+        <form id="trasladoForm" novalidate>
+          <fieldset style="border:none;padding:0;margin:0">
+            <legend style="font-weight:700;margin-bottom:8px">Datos del Paciente</legend>
+
+            <div class="form-grid">
+              <div class="full">
+                <label for="ci">Cédula (CI)</label>
+                <div class="ci-row">
+                  <input type="text" id="ci" name="ci" placeholder="Ej: 12345678" aria-describedby="ciError" />
+                  <button type="button" id="buscarCi" class="boton-secundario">Buscar</button>
+                </div>
+                <span id="ciError" class="error" style="display:none"></span>
+              </div>
+
+              <div>
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" readonly />
+                <span id="nombreError" class="error" style="display:none"></span>
+              </div>
+
+              <div>
+                <label for="apellido">Apellido</label>
+                <input type="text" id="apellido" name="apellido" readonly />
+                <span id="apellidoError" class="error" style="display:none"></span>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset style="border:none;padding:0;margin-top:18px">
+            <legend style="font-weight:700;margin-bottom:8px">Datos del Traslado</legend>
+
+            <div class="form-grid">
+              <div>
+                <label for="conductor">Conductor</label>
+                <select id="conductor" name="conductor">
+                  <option value="">-- Seleccione --</option>
+                  <option>Carlos Rodríguez</option>
+                  <option>María Gómez</option>
+                  <option>Pedro Silva</option>
+                </select>
+                <span id="conductorError" class="error" style="display:none"></span>
+              </div>
+
+              <div>
+                <label for="enfermero">Enfermero/a acompañante</label>
+                <select id="enfermero" name="enfermero">
+                  <option value="">-- Seleccione --</option>
+                  <option>Laura Fernández</option>
+                  <option>José Martínez</option>
+                  <option>Ana Torres</option>
+                </select>
+                <span id="enfermeroError" class="error" style="display:none"></span>
+              </div>
+
+              <div>
+                <label for="vehiculo">Vehículo</label>
+                <select id="vehiculo" name="vehiculo">
+                  <option value="">-- Seleccione --</option>
+                  <option>Ambulancia A-101</option>
+                  <option>Ambulancia A-102</option>
+                  <option>Auto B-201</option>
+                </select>
+                <span id="vehiculoError" class="error" style="display:none"></span>
+              </div>
+
+              <div>
+                <label for="origen">Origen</label>
+                <input type="text" id="origen" name="origen" value="Hospital de Clínicas - Piso 6" />
+                <span id="origenError" class="error" style="display:none"></span>
+              </div>
+
+              <div class="full">
+                <label for="destino">Destino</label>
+                <input type="text" id="destino" name="destino" placeholder="Ej: Centro de Nefrología" />
+                <span id="destinoError" class="error" style="display:none"></span>
+              </div>
+
+              <div>
+                <label for="salida">Hora de Salida</label>
+                <input type="datetime-local" id="salida" name="salida" />
+                <span id="salidaError" class="error" style="display:none"></span>
+              </div>
+
+              <div>
+                <label for="llegada">Hora Estimada de Llegada</label>
+                <input type="datetime-local" id="llegada" name="llegada" />
+                <span id="llegadaError" class="error" style="display:none"></span>
+              </div>
+            </div>
+          </fieldset>
+
+          <div style="margin-top:20px; display:flex; gap:12px; justify-content:flex-end; flex-wrap:wrap;">
+            <button type="button" id="cancelar" class="boton-secundario">Cancelar</button>
+            <button type="button" id="registrar" class="boton-principal">Registrar Traslado</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer style="text-align:center;">
+      <p>Hospital de Clínicas</p>
+      <p>Instituto Tecnológico Superior de Paysandú - ITSP</p>
+    </footer>
+
+    <script src="javascript/traslado.js"></script>
+  </body>
+</html>
