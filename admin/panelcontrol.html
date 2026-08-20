@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+    <title>Hospital de Clínicas - Panel de Funcionarios</title>
+  </head>
+  <body>
+
+    <header>
+      <button type="button" class="boton-logo">
+        <img src="https://hc.edu.uy/images/imagenesarticulos/Logo_Hc.jpg" alt="Logo HC" class="logo" />
+      </button>
+      <div class="titulo-header">
+        <h1>Hospital de Clínicas Dr. Manuel Quintela</h1>
+        <p>Sistema Informático de Gestión de Servicios Médicos</p>
+      </div>
+    </header>
+
+    <div class="barra-usuario">
+      <p class="saludo">Bienvenido/a, <strong>[Nombre del funcionario]</strong></p>
+      <button type="button" class="boton-secundario" onclick="window.location.href='index.html'">Cerrar sesión</button>
+    </div>
+
+    <h2 class="subtitulo-panel">Panel de Funcionarios</h2>
+    <p class="subtitulo-panel">Seleccioná una opción para continuar.</p>
+
+    <main>
+
+      <a class="tarjeta tarjeta-accion" data-tipo="traslado-nuevo" href="traslado_form.html">
+        <span class="icono" aria-hidden="true"></span>
+        <h2>Solicitar traslado</h2>
+        <p>Generar una nueva solicitud de traslado de paciente entre servicios o centros.</p>
+      </a>
+
+      <a class="tarjeta tarjeta-accion" data-tipo="traslado-ver" href="ver_traslados.html">
+        <span class="icono" aria-hidden="true"></span>
+        <h2>Ver traslados</h2>
+        <p>Consultar el estado y el historial de traslados solicitados.</p>
+      </a>
+
+      <a class="tarjeta tarjeta-accion" data-tipo="documento" href="crear_documento.html">
+        <span class="icono" aria-hidden="true"></span>
+        <h2>Crear documento</h2>
+        <p>Redactar y generar documentación clínica o administrativa.</p>
+      </a>
+
+      <a class="tarjeta tarjeta-accion" data-tipo="paciente" href="registrar_paciente.html">
+        <div class="icono" aria-hidden="true"></div>
+        <h2>Registrar pacientes</h2>
+        <p>Dar de alta a un nuevo paciente en el sistema.</p>
+      </a>
+
+    </main>
+
+    <footer>
+      <p>Hospital de Clínicas</p>
+      <p>Instituto Tecnológico Superior de Paysandú - ITSP</p>
+      <p>© 2026 Hospital de Clínicas. Todos los derechos reservados.</p>
+    </footer>
+
+  </body>
+</html>
