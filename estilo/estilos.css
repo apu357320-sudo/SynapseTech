@@ -1,0 +1,24 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, sans-serif; color: #18324b; background: #eef4f7; }
+header { padding: 24px 7%; color: white; background: #116466; }
+header h1 { margin: 0 0 6px; }
+header p { margin: 0; }
+main { width: min(1100px, 92%); margin: 32px auto; }
+.panel { background: white; padding: 24px; margin-bottom: 24px; border: 1px solid #d9e3e8; border-radius: 8px; box-shadow: 0 2px 8px #18324b12; }
+.formulario { display: grid; gap: 12px; max-width: 520px; }
+label { font-weight: bold; }
+input, select, button { font: inherit; padding: 10px; border: 1px solid #b7c8d2; border-radius: 4px; }
+button, .boton { color: white; background: #116466; border: 0; cursor: pointer; text-decoration: none; display: inline-block; }
+button:hover, .boton:hover { background: #0b4d4e; }
+.boton-secundario { background: #617783; }
+.barra { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.tarjeta { border: 1px solid #d9e3e8; padding: 18px; border-radius: 6px; }
+.mensaje { min-height: 24px; color: #b33a3a; }
+.exito { color: #1b7047; }
+table { width: 100%; border-collapse: collapse; } th, td { padding: 10px; border-bottom: 1px solid #d9e3e8; text-align: left; vertical-align: top; }
+.acciones { display: flex; gap: 6px; flex-wrap: wrap; }
+.acciones button { padding: 7px; }
+iframe, #vistaImagen { width: 100%; min-height: 520px; border: 1px solid #b7c8d2; }
+#vistaImagen { object-fit: contain; display: none; }
+@media (max-width: 650px) { header { padding: 20px 4%; } main { width: 94%; } table { display: block; overflow-x: auto; white-space: nowrap; } }

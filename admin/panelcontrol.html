@@ -20,7 +20,7 @@
 
     <div class="barra-usuario">
       <p class="saludo">Bienvenido/a, <strong>[Nombre del funcionario]</strong></p>
-      <button type="button" class="boton-secundario" onclick="window.location.href='index.html'">Cerrar sesión</button>
+      <a class="boton-secundario" href="../php/cerrarSesion.php">Cerrar sesión</a>
     </div>
 
     <h2 class="subtitulo-panel">Panel de Funcionarios</h2>
@@ -28,25 +28,25 @@
 
     <main>
 
-      <a class="tarjeta tarjeta-accion" data-tipo="traslado-nuevo" href="traslado_form.html">
+      <a class="tarjeta tarjeta-accion" data-tipo="traslado-nuevo" href="traslado_form.php">
         <span class="icono" aria-hidden="true"></span>
         <h2>Solicitar traslado</h2>
         <p>Generar una nueva solicitud de traslado de paciente entre servicios o centros.</p>
       </a>
 
-      <a class="tarjeta tarjeta-accion" data-tipo="traslado-ver" href="ver_traslados.html">
+      <a class="tarjeta tarjeta-accion" data-tipo="traslado-ver" href="traslados.php">
         <span class="icono" aria-hidden="true"></span>
         <h2>Ver traslados</h2>
         <p>Consultar el estado y el historial de traslados solicitados.</p>
       </a>
 
-      <a class="tarjeta tarjeta-accion" data-tipo="documento" href="crear_documento.html">
+      <a class="tarjeta tarjeta-accion" data-tipo="documento" href="../usuario/cargar_documento.php">
         <span class="icono" aria-hidden="true"></span>
         <h2>Crear documento</h2>
         <p>Redactar y generar documentación clínica o administrativa.</p>
       </a>
 
-      <a class="tarjeta tarjeta-accion" data-tipo="paciente" href="registrar_paciente.html">
+      <a class="tarjeta tarjeta-accion" data-tipo="paciente" href="registrar_usuario.php">
         <div class="icono" aria-hidden="true"></div>
         <h2>Registrar pacientes</h2>
         <p>Dar de alta a un nuevo paciente en el sistema.</p>

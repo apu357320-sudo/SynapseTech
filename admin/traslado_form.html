@@ -28,7 +28,7 @@
               <div class="full">
                 <label for="ci">Cédula (CI)</label>
                 <div class="ci-row">
-                  <input type="text" id="ci" name="ci" placeholder="Ej: 12345678" />
+                  <input type="text" id="ci" name="paciente_ci" placeholder="Ej: 12345678" required />
                   <button type="button" id="buscarCi" class="boton-secundario">Buscar</button>
                 </div>
                 <span id="ciError" class="error" style="display:none"></span>
@@ -36,7 +36,7 @@
 
               <div>
                 <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" readonly />
+                <input type="text" id="nombre" name="paciente_nombre" placeholder="Nombre y apellido" required />
                 <span id="nombreError" class="error" style="display:none"></span>
               </div>
 
@@ -54,22 +54,22 @@
             <div class="form-grid">
               <div>
                 <label for="conductor">Conductor</label>
-                <select id="conductor" name="conductor">
+                <select id="conductor" name="id_chofer" required>
                   <option value="">-- Seleccione --</option>
-                  <option>Carlos Rodríguez</option>
-                  <option>María Gómez</option>
-                  <option>Pedro Silva</option>
+                  <option value="1">Carlos Rodríguez</option>
+                  <option value="2">María Gómez</option>
+                  <option value="3">Pedro Silva</option>
                 </select>
                 <span id="conductorError" class="error" style="display:none"></span>
               </div>
 
               <div>
                 <label for="enfermero">Enfermero/a acompañante</label>
-                <select id="enfermero" name="enfermero">
+                <select id="enfermero" name="id_enfermero" required>
                   <option value="">-- Seleccione --</option>
-                  <option>Laura Fernández</option>
-                  <option>José Martínez</option>
-                  <option>Ana Torres</option>
+                  <option value="1">Laura Fernández</option>
+                  <option value="2">José Martínez</option>
+                  <option value="3">Ana Torres</option>
                 </select>
                 <span id="enfermeroError" class="error" style="display:none"></span>
               </div>
@@ -99,21 +99,26 @@
 
               <div>
                 <label for="salida">Hora de Salida</label>
-                <input type="datetime-local" id="salida" name="salida" />
+                <input type="datetime-local" id="salida" name="hora_salida" required />
                 <span id="salidaError" class="error" style="display:none"></span>
               </div>
 
               <div>
                 <label for="llegada">Hora Estimada de Llegada</label>
-                <input type="datetime-local" id="llegada" name="llegada" />
+                <input type="datetime-local" id="llegada" name="hora_llegada_estimada" />
                 <span id="llegadaError" class="error" style="display:none"></span>
               </div>
             </div>
           </fieldset>
 
+          <div class="form-grid">
+            <div class="full"><label for="tipoElemento">Tipo de elemento</label><select id="tipoElemento" name="tipo_elemento"><option>Paciente</option><option>Paciente con acompañante</option><option>Objeto</option></select></div>
+            <div class="full"><label for="observaciones">Observaciones</label><input type="text" id="observaciones" name="observaciones" /></div>
+          </div>
+
           <div class="botones-contenedor">
             <button type="button" id="cancelar" class="boton-secundario">Cancelar</button>
-            <button type="button" id="registrar" class="boton-principal">Registrar Traslado</button>
+            <button type="submit" id="registrar" class="boton-principal">Registrar Traslado</button>
           </div>
         </form>
       </section>
@@ -124,6 +129,6 @@
       <p>Instituto Tecnológico Superior de Paysandú - ITSP</p>
     </footer>
 
-    <script src="../javascript/traslado.js"></script>
+    <script src="../js/traslado.js"></script>
   </body>
 </html>
