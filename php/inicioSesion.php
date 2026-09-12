@@ -5,7 +5,7 @@ $nombreUsuario = limpiar($_POST['usuario'] ?? '');
 $password = $_POST['password'] ?? '';
 
 if ($nombreUsuario === '' || $password === '') {
-    responder(['exito' => false, 'mensaje' => 'Completa el usuario y la contraseña.'], 422);
+    responder(['exito' => false, 'mensaje' => 'Completá el usuario y la contraseña.'], 422);
 }
 
 $stmt = $conn->prepare("SELECT u.id_usuario, u.ci AS nombre_usuario, u.contrasena AS password_hash, CONCAT(u.nombre, ' ', u.apellido) AS nombre_completo, u.email, r.nombre_rol AS rol, u.ci AS numeroId FROM usuario u INNER JOIN rol r ON r.id_rol = u.id_rol WHERE (u.ci = ? OR u.email = ?) AND u.estado = 1 LIMIT 1");
