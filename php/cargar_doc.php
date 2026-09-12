@@ -8,7 +8,7 @@ $archivo = $_FILES['archivo'] ?? null;
 $extensionesPermitidas = ['pdf', 'jpg', 'jpeg', 'png', 'gif', 'doc', 'docx'];
 
 if ($titulo === '' || !$archivo || $archivo['error'] !== UPLOAD_ERR_OK) {
-    responder(['exito' => false, 'mensaje' => 'Indica un título y selecciona un archivo.'], 422);
+    responder(['exito' => false, 'mensaje' => 'Indicá un título y seleccioná un archivo.'], 422);
 }
 
 $extension = strtolower(pathinfo($archivo['name'], PATHINFO_EXTENSION));

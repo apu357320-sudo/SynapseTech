@@ -11,7 +11,7 @@ $rol = limpiar($_POST['rol'] ?? '');
 $numeroId = limpiar($_POST['numeroId'] ?? '');
 
 if ($nombreUsuario === '' || $password === '' || $nombreCompleto === '' || $email === '' || $rol === '' || $numeroId === '') {
-    responder(['exito' => false, 'mensaje' => 'Completa todos los campos.'], 422);
+    responder(['exito' => false, 'mensaje' => 'Completá todos los campos.'], 422);
 }
 
 $partesNombre = preg_split('/\s+/', $nombreCompleto);

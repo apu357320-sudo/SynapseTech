@@ -16,7 +16,7 @@ $horaEstimada = limpiar($_POST['hora_llegada_estimada'] ?? '');
 $observaciones = limpiar($_POST['observaciones'] ?? '');
 
 if ($idChofer < 1 || $idEnfermero < 1 || $pacienteCi === '' || $pacienteNombre === '' || $vehiculo === '' || $origen === '' || $destino === '' || $horaSalida === '') {
-    responder(['exito' => false, 'mensaje' => 'Completa los datos obligatorios del traslado.'], 422);
+    responder(['exito' => false, 'mensaje' => 'Completá los datos obligatorios del traslado.'], 422);
 }
 
 $horaSalida = str_replace('T', ' ', $horaSalida);

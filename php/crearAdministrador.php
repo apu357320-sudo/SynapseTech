@@ -6,14 +6,13 @@ if ((int) $conteo['total'] > 0) {
     responder(['exito' => false, 'mensaje' => 'La configuración inicial ya fue realizada.'], 403);
 }
 
-$nombreUsuario = limpiar($_POST['nombre_usuario'] ?? '');
 $password = $_POST['password'] ?? '';
 $nombreCompleto = limpiar($_POST['nombre_completo'] ?? '');
 $email = limpiar($_POST['email'] ?? '');
 $numeroId = limpiar($_POST['numeroId'] ?? '');
 
-if ($nombreUsuario === '' || $password === '' || $nombreCompleto === '' || $email === '' || $numeroId === '') {
-    responder(['exito' => false, 'mensaje' => 'Completa todos los campos.'], 422);
+if ($password === '' || $nombreCompleto === '' || $email === '' || $numeroId === '') {
+    responder(['exito' => false, 'mensaje' => 'Completá todos los campos.'], 422);
 }
 
 $hash = password_hash($password, PASSWORD_DEFAULT);
@@ -26,4 +25,4 @@ $stmt->bind_param('sssssi', $numeroId, $nombre, $apellido, $email, $hash, $idRol
 if (!$stmt->execute()) {
     responder(['exito' => false, 'mensaje' => 'No se pudo crear el administrador.'], 422);
 }
-responder(['exito' => true, 'mensaje' => 'Administrador creado. Ya puedes iniciar sesión.']);
+responder(['exito' => true, 'mensaje' => 'Administrador creado. Ya podés iniciar sesión.']);

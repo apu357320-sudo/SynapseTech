@@ -9,7 +9,7 @@ async function cargarDocumentos() {
   const respuesta = await fetch('../php/obtener_doc.php');
   const datos = await respuesta.json();
   if (!datos.exito) throw new Error(datos.mensaje);
-  listaDocumentos.innerHTML = '<option value="">Selecciona un documento</option>';
+  listaDocumentos.innerHTML = '<option value="">Seleccioná un documento</option>';
   datos.documentos.forEach((documento) => {
     const opcion = document.createElement('option');
     opcion.value = documento.id;
@@ -25,7 +25,7 @@ formularioCarga?.addEventListener('submit', async (evento) => {
   evento.preventDefault();
   const archivo = formularioCarga.archivo.files[0];
   if (!formularioCarga.titulo.value.trim() || !archivo) {
-    mensajeDocumentos.textContent = 'Completa el título y selecciona un archivo.';
+    mensajeDocumentos.textContent = 'Completá el título y seleccioná un archivo.';
     return;
   }
   const respuesta = await fetch('../php/cargar_doc.php', { method: 'POST', body: new FormData(formularioCarga) });

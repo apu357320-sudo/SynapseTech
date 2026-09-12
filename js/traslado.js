@@ -27,7 +27,7 @@ formularioTraslado?.addEventListener('submit', async (evento) => {
 listaTraslados?.addEventListener('click', async (evento) => {
   const boton = evento.target;
   if (!boton.dataset.id && !boton.dataset.cancelar) return;
-  if (!confirm('¿Confirmas esta acción?')) return;
+  if (!confirm('¿Confirmás esta acción?')) return;
   const datos = new FormData();
   datos.append('id', boton.dataset.id || boton.dataset.cancelar);
   let url = '../php/actualizarTraslado.php';

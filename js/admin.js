@@ -41,11 +41,11 @@ tablaUsuarios.addEventListener('click', async (evento) => {
   const id = boton.dataset.eliminar || boton.dataset.editar;
   if (!id) return;
   if (boton.dataset.eliminar) {
-    if (!confirm('¿Eliminar este usuario?')) return;
+  if (!confirm('¿Querés eliminar este usuario?')) return;
     const datos = new FormData(); datos.append('id_usuario', id);
     const respuesta = await enviar('../php/eliminarUsuario.php', datos); mensajeAdmin.textContent = respuesta.mensaje;
   } else {
-    const nombre = prompt('Nuevo nombre completo:'); const email = prompt('Nuevo email:'); const rol = prompt('Nuevo rol:', 'Personal Administrativo'); const password = prompt('Nueva contraseña (deja vacío para conservarla):');
+    const nombre = prompt('Nuevo nombre completo:'); const email = prompt('Nuevo email:'); const rol = prompt('Nuevo rol:', 'Personal Administrativo'); const password = prompt('Nueva contraseña (dejá vacío para conservarla):');
     if (!nombre || !email || !rol) return;
     const datos = new FormData(); datos.append('id_usuario', id); datos.append('nombre_completo', nombre); datos.append('email', email); datos.append('rol', rol);
     if (password) datos.append('password', password);
@@ -58,7 +58,7 @@ tablaDocumentos.addEventListener('click', async (evento) => {
   const boton = evento.target; const id = boton.dataset.docEliminar || boton.dataset.docEditar;
   if (!id) return;
   const datos = new FormData(); datos.append('id', id);
-  if (boton.dataset.docEliminar) { if (!confirm('¿Eliminar este documento y su archivo?')) return; const respuesta = await enviar('../php/eliminarDocumento.php', datos); mensajeAdmin.textContent = respuesta.mensaje; }
+  if (boton.dataset.docEliminar) { if (!confirm('¿Querés eliminar este documento y su archivo?')) return; const respuesta = await enviar('../php/eliminarDocumento.php', datos); mensajeAdmin.textContent = respuesta.mensaje; }
   else { const titulo = prompt('Nuevo título:'); if (!titulo) return; datos.append('titulo', titulo); const respuesta = await enviar('../php/actualizarDocumento.php', datos); mensajeAdmin.textContent = respuesta.mensaje; }
   cargarDocumentosAdmin();
 });

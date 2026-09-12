@@ -1,0 +1,46 @@
+<?php
+require_once __DIR__ . '/../php/sesion.php';
+if (empty($_SESSION['usuario'])) {
+    header('Location: ../index.html');
+    exit;
+}
+?>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cargar documento | HR Clínica</title>
+    <link rel="stylesheet" href="../estilo/style.css">
+  </head>
+  <body>
+    <header>
+      <h1>Cargá un documento</h1>
+      <p>Documentación clínica y administrativa</p>
+    </header>
+    <main>
+      <section class="panel">
+        <form id="formularioCarga" class="formulario" enctype="multipart/form-data">
+          <label for="titulo">Título</label>
+          <input id="titulo" name="titulo" required>
+
+          <label for="archivo">Archivo</label>
+          <input id="archivo" name="archivo" type="file" accept=".pdf,.jpg,.jpeg,.png,.gif,.doc,.docx" required>
+
+          <button type="submit">Cargá el documento</button>
+          <p id="mensajeDocumentos" class="mensaje" role="alert"></p>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>Documentos disponibles</h2>
+        <select id="listaDocumentos" aria-label="Seleccioná un documento"></select>
+        <iframe id="vistaDocumento" title="Vista previa del documento"></iframe>
+        <img id="vistaImagen" alt="Vista previa del documento">
+      </section>
+
+      <a class="boton boton-secundario" href="index.php">Volvé</a>
+    </main>
+    <script src="../js/documentos.js"></script>
+  </body>
+</html>

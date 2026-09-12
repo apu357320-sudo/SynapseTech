@@ -29,5 +29,5 @@ responder([
     'exito' => true,
     'mensaje' => 'Inicio de sesión correcto.',
     'rol' => $usuario['rol'],
-    'redireccion' => $usuario['rol'] === 'Administrador' ? '../admin/index.php' : '../usuario/index.php'
+    'redireccion' => $usuario['rol'] === 'Administrador' ? 'admin/index.php' : 'usuario/index.php'
 ]);

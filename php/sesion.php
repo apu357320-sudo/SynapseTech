@@ -12,6 +12,6 @@ function exigirSesion($soloAdministrador = false)
     }
 
     if ($soloAdministrador && ($_SESSION['rol'] ?? '') !== 'Administrador') {
-        responder(['exito' => false, 'mensaje' => 'No tienes permisos para esta acción.'], 403);
+        responder(['exito' => false, 'mensaje' => 'No tenés permisos para esta acción.'], 403);
     }
 }

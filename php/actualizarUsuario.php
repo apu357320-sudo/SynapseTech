@@ -10,7 +10,7 @@ $rol = limpiar($_POST['rol'] ?? '');
 $password = $_POST['password'] ?? '';
 
 if ($id < 1 || $nombreCompleto === '' || $email === '' || $rol === '') {
-    responder(['exito' => false, 'mensaje' => 'Datos incompletos.'], 422);
+    responder(['exito' => false, 'mensaje' => 'Faltan datos.'], 422);
 }
 
 $partesNombre = preg_split('/\s+/', $nombreCompleto);

@@ -6,7 +6,7 @@ formularioLogin.addEventListener('submit', async (evento) => {
   const usuario = formularioLogin.usuario.value.trim();
   const password = formularioLogin.password.value;
   if (!usuario || !password) {
-    mensajeLogin.textContent = 'Completa el usuario y la contraseña.';
+    mensajeLogin.textContent = 'Completá el usuario y la contraseña.';
     return;
   }
 
