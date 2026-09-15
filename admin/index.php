@@ -14,7 +14,7 @@ if ($_SESSION['rol'] !== 'Administrador') { header('Location: ../usuario/index.p
 	<body>
 		<header>
 			<h1>Panel de administración</h1>
-			<p>Gestioná usuarios y documentos</p>
+			<p>Gestionar usuarios y documentos</p>
 		</header>
 		<main>
 			<section class="panel">
@@ -33,7 +33,7 @@ if ($_SESSION['rol'] !== 'Administrador') { header('Location: ../usuario/index.p
 					<label>Email<input name="email" type="email" required></label>
 					<label>Rol<select name="rol"><option>Administrador</option><option>Personal Administrativo</option><option>Chofer</option><option>Enfermero</option></select></label>
 					<label>Número de empleado<input name="numeroId" required></label>
-					  <button type="submit">Registrá el usuario</button>
+					  <button type="submit">Registrar el usuario</button>
 				</form>
 			</section>
 			<section class="panel">
