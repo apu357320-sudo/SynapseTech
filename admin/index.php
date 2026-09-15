@@ -25,7 +25,7 @@ if ($_SESSION['rol'] !== 'Administrador') { header('Location: ../usuario/index.p
 				<p id="mensajeAdmin" class="mensaje"></p>
 			</section>
 			<section class="panel">
-				<h2>Registrá un usuario</h2>
+				<h2>Registrar un usuario</h2>
 				<form id="formularioUsuario" class="formulario">
 					<label>Usuario<input name="nombre_usuario" required></label>
 					<label>Contraseña<input name="password" type="password" required></label>
