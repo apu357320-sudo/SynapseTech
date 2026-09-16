@@ -16,5 +16,6 @@ function responder($datos, $codigo = 200)
 
 function limpiar($valor)
 {
-    return trim((string) $valor);
+    return trim((string)$valor);
 }
+
