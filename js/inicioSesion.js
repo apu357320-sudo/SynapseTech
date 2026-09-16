@@ -12,10 +12,14 @@ formularioLogin.addEventListener('submit', async (evento) => {
 
   try {
     const respuesta = await fetch('php/inicioSesion.php', { method: 'POST', body: new FormData(formularioLogin) });
+    const tipo = respuesta.headers.get('content-type') || '';
+    if (!tipo.includes('application/json')) {
+      throw new Error('La página no fue abierta desde Apache.');
+    }
     const datos = await respuesta.json();
     mensajeLogin.textContent = datos.mensaje;
     if (datos.exito) window.location.href = datos.redireccion;
   } catch (error) {
-    mensajeLogin.textContent = 'No se pudo contactar con el servidor.';
+    mensajeLogin.textContent = 'Abrí el sitio desde http://localhost/SynapseTech/SynapseTech/index.html usando Apache de XAMPP. No uses Live Server.';
   }
 });

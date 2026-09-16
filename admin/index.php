@@ -24,7 +24,7 @@ if ($_SESSION['rol'] !== 'Administrador') { header('Location: ../usuario/index.p
 				</div>
 				<p id="mensajeAdmin" class="mensaje"></p>
 			</section>
-			<section class="panel">
+			<section class="panel panel-usuarios">
 				<h2>Registrar un usuario</h2>
 				<form id="formularioUsuario" class="formulario">
 					<label>Usuario<input name="nombre_usuario" required></label>
@@ -42,14 +42,14 @@ if ($_SESSION['rol'] !== 'Administrador') { header('Location: ../usuario/index.p
 					<table><thead><tr><th>Usuario</th><th>Nombre</th><th>Email</th><th>Rol</th><th>Número</th><th>Acciones</th></tr></thead><tbody id="tablaUsuarios"></tbody></table>
 				</div>
 			</section>
-			<section class="panel">
+			<section class="panel panel-documentos">
 				<h2>Documentos</h2>
 				<div style="overflow-x:auto">
-					<table><thead><tr><th>Título</th><th>Archivo</th><th>Fecha</th><th>Acciones</th></tr></thead><tbody id="tablaDocumentos"></tbody></table>
+					<table class="tabla-admin"><thead><tr><th>Título</th><th>Archivo</th><th>Fecha</th><th>Acciones</th></tr></thead><tbody id="tablaDocumentos"></tbody></table>
 				</div>
 			</section>
-			<p><a class="boton" href="traslados.php">Seguimiento de traslados</a></p>
+			<section class="panel panel-tabla-usuarios">
 		</main>
 		<script src="../js/admin.js"></script>
-	</body>
+					<table class="tabla-admin tabla-usuarios"><thead><tr><th>Usuario</th><th>Nombre completo</th><th>Correo electrónico</th><th>Rol</th><th>Número</th><th>Acciones</th></tr></thead><tbody id="tablaUsuarios"></tbody></table>
 </html>
