@@ -26,6 +26,12 @@ header {
   padding: 0;
 }
 
+.enlace-logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
 .logo {
   height: 60px;
   width: auto;

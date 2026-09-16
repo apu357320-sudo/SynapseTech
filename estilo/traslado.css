@@ -25,6 +25,12 @@ header .boton-logo {
   padding: 0;
 }
 
+header .enlace-logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
 .logo {
   height: 60px;
   width: auto;

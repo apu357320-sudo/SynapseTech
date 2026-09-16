@@ -15,6 +15,7 @@ if (empty($_SESSION['usuario'])) {
   </head>
   <body>
     <header>
+      <a href="../index.html" class="enlace-logo" aria-label="Ir a la página inicial"><img src="../logo.svg" alt="Logo del Hospital de Clínicas" class="logo"></a>
       <h1>Cargar un documento</h1>
       <p>Documentación clínica y administrativa</p>
     </header>

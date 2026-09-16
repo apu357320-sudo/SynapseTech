@@ -12,7 +12,7 @@ if ($_SESSION['rol'] !== 'Administrador') { header('Location: ../usuario/index.p
 		<link rel="stylesheet" href="../estilo/style.css">
 	</head>
 	<body>
-		<header><h1>Registrar un usuario</h1></header>
+				<header><a href="../index.html" class="enlace-logo" aria-label="Ir a la página inicial"><img src="../logo.svg" alt="Logo del Hospital de Clínicas" class="logo"></a><h1>Registrar un usuario</h1></header>
 		<main>
 			<section class="panel">
 				<form id="formularioUsuario" class="formulario">

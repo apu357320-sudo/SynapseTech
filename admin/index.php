@@ -13,14 +13,15 @@ if ($_SESSION['rol'] !== 'Administrador') { header('Location: ../usuario/index.p
 	</head>
 	<body>
 		<header>
-			<h1>Panel de administración</h1>
+						<a href="../index.html" class="enlace-logo" aria-label="Ir a la página inicial"><img src="../logo.svg" alt="Logo del Hospital de Clínicas" class="logo"></a>
+						<h1>Panel de administración</h1>
 			<p>Gestionar usuarios y documentos</p>
 		</header>
 		<main>
 			<section class="panel">
 				<div class="barra">
 					  <h2>Administración</h2>
-					  <a class="boton boton-secundario" href="../php/cerrarSesion.php">Cerrá la sesión</a>
+					  <a class="boton boton-secundario" href="../php/cerrarSesion.php">Cerrar la sesión</a>
 				</div>
 				<p id="mensajeAdmin" class="mensaje"></p>
 			</section>

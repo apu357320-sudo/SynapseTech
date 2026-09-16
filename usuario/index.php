@@ -19,6 +19,7 @@ if (($_SESSION['rol'] ?? '') === 'Administrador') {
   </head>
   <body>
     <header>
+      <a href="../index.html" class="enlace-logo" aria-label="Ir a la página inicial"><img src="../logo.svg" alt="Logo del Hospital de Clínicas" class="logo"></a>
       <h1>HR Clínica</h1>
       <p>Panel de usuario</p>
     </header>
