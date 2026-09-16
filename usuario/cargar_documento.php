@@ -10,12 +10,12 @@ if (empty($_SESSION['usuario'])) {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cargar documento | HR Clínica</title>
+    <title>Cargar documento | Hospital de Clínicas</title>
     <link rel="stylesheet" href="../estilo/style.css">
   </head>
   <body>
     <header>
-      <h1>Cargá un documento</h1>
+      <h1>Cargar un documento</h1>
       <p>Documentación clínica y administrativa</p>
     </header>
     <main>
@@ -27,7 +27,7 @@ if (empty($_SESSION['usuario'])) {
           <label for="archivo">Archivo</label>
           <input id="archivo" name="archivo" type="file" accept=".pdf,.jpg,.jpeg,.png,.gif,.doc,.docx" required>
 
-          <button type="submit">Cargá el documento</button>
+          <button type="submit">Cargar el documento</button>
           <p id="mensajeDocumentos" class="mensaje" role="alert"></p>
         </form>
       </section>
@@ -39,7 +39,7 @@ if (empty($_SESSION['usuario'])) {
         <img id="vistaImagen" alt="Vista previa del documento">
       </section>
 
-      <a class="boton boton-secundario" href="index.php">Volvé</a>
+      <a class="boton boton-secundario" href="index.php">Volver</a>
     </main>
     <script src="../js/documentos.js"></script>
   </body>
