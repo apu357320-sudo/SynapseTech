@@ -79,7 +79,48 @@ main {
 }
 
 .panel-documentos {
-  order: -1;
+  order: 3;
+}
+
+.admin-page main {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+}
+
+.admin-page .panel-administracion {
+  order: 1;
+}
+
+.admin-page .panel-usuarios {
+  order: 2;
+}
+
+.admin-page .panel-usuarios-registrados {
+  order: 3;
+}
+
+.admin-page .panel-documentos {
+  order: 4;
+}
+
+.admin-page .panel,
+.admin-page .panel-usuarios,
+.admin-page .panel-documentos {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.admin-page .panel-administracion {
+  border-top: 4px solid #0057a3;
+}
+
+.admin-page .panel-usuarios-registrados {
+  overflow: hidden;
+}
+
+.admin-page .panel-usuarios-registrados table {
+  min-width: 760px;
 }
 
 .panel-tabla-usuarios {

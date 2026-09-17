@@ -10,18 +10,21 @@ if ($_SESSION['rol'] !== 'Administrador') { header('Location: ../usuario/index.p
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Panel administrador</title>
 		<link rel="stylesheet" href="../estilo/style.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 	</head>
-	<body>
+	<body class="admin-page">
 		<header>
-						<a href="../index.html" class="enlace-logo" aria-label="Ir a la página inicial"><img src="../logo.svg" alt="Logo del Hospital de Clínicas" class="logo"></a>
-						<h1>Panel de administración</h1>
+			<a href="../index.html" class="enlace-logo" aria-label="Ir a la página inicial"><img src="../logo.svg" alt="Logo del Hospital de Clínicas" class="logo"></a>
+			<div>
+				<h1>Panel de administración</h1>
 			<p>Gestionar usuarios y documentos</p>
+			</div>
 		</header>
 		<main>
-			<section class="panel">
+			<section class="panel panel-administracion">
 				<div class="barra">
-					  <h2>Administración</h2>
-					  <a class="boton boton-secundario" href="../php/cerrarSesion.php">Cerrar la sesión</a>
+					<h2>Administración</h2>
+					<a class="btn btn-primary" href="../php/cerrarSesion.php">Cerrar la sesión</a>
 				</div>
 				<p id="mensajeAdmin" class="mensaje"></p>
 			</section>
@@ -37,10 +40,10 @@ if ($_SESSION['rol'] !== 'Administrador') { header('Location: ../usuario/index.p
 					  <button type="submit">Registrar el usuario</button>
 				</form>
 			</section>
-			<section class="panel">
+			<section class="panel panel-usuarios-registrados">
 				<h2>Usuarios registrados</h2>
 				<div style="overflow-x:auto">
-					<table><thead><tr><th>Usuario</th><th>Nombre</th><th>Email</th><th>Rol</th><th>Número</th><th>Acciones</th></tr></thead><tbody id="tablaUsuarios"></tbody></table>
+					<table class="tabla-admin"><thead><tr><th>Usuario</th><th>Nombre</th><th>Email</th><th>Rol</th><th>Número</th><th>Acciones</th></tr></thead><tbody id="tablaUsuarios"></tbody></table>
 				</div>
 			</section>
 			<section class="panel panel-documentos">
@@ -49,8 +52,7 @@ if ($_SESSION['rol'] !== 'Administrador') { header('Location: ../usuario/index.p
 					<table class="tabla-admin"><thead><tr><th>Título</th><th>Archivo</th><th>Fecha</th><th>Acciones</th></tr></thead><tbody id="tablaDocumentos"></tbody></table>
 				</div>
 			</section>
-			<section class="panel panel-tabla-usuarios">
 		</main>
 		<script src="../js/admin.js"></script>
-					<table class="tabla-admin tabla-usuarios"><thead><tr><th>Usuario</th><th>Nombre completo</th><th>Correo electrónico</th><th>Rol</th><th>Número</th><th>Acciones</th></tr></thead><tbody id="tablaUsuarios"></tbody></table>
+	</body>
 </html>
