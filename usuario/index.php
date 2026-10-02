@@ -20,7 +20,7 @@ if (($_SESSION['rol'] ?? '') === 'Administrador') {
   <body>
     <header>
       <a href="../index.html" class="enlace-logo" aria-label="Ir a la página inicial"><img src="../logo.svg" alt="Logo del Hospital de Clínicas" class="logo"></a>
-      <h1>HR Clínica</h1>
+      <h1>Hospital de Clínicas Dr. Manuel Quintela</h1>
       <p>Panel de usuario</p>
     </header>
     <main>
@@ -29,10 +29,10 @@ if (($_SESSION['rol'] ?? '') === 'Administrador') {
           <h2>Bienvenido/a, <?= htmlspecialchars($_SESSION['nombre_completo'] ?? $_SESSION['usuario'], ENT_QUOTES, 'UTF-8') ?></h2>
           <a class="boton boton-secundario" href="../php/cerrarSesion.php">Cerrar sesión</a>
         </div>
-        <p>Seleccioná una opción para continuar.</p>
-        <p><a class="boton" href="cargar_documento.php">Cargá un documento</a></p>
-        <p><a class="boton boton-secundario" href="paciente.html">Accedé como paciente</a></p>
+        <p>Selecciona una opción para continuar.</p>
+        <p><a class="boton" href="cargar_documento.php">Cargar un documento</a></p>
+        <p><a class="boton boton-secundario" href="paciente.html">Acceder como paciente</a></p>
       </section>
     </main>
   </body>
-</html>
+</html> 

@@ -17,7 +17,7 @@ if ($nombreUsuario === '' || $password === '' || $nombreCompleto === '' || $emai
 $partesNombre = preg_split('/\s+/', $nombreCompleto);
 $apellido = array_pop($partesNombre);
 $nombre = implode(' ', $partesNombre);
-$hash = password_hash($password, PASSWORD_DEFAULT);
+$hash = password_hash($password, PASSWORD_BCRYPT);
 $consultaRol = $conn->prepare('SELECT id_rol FROM rol WHERE nombre_rol = ? LIMIT 1');
 $consultaRol->bind_param('s', $rol);
 $consultaRol->execute();

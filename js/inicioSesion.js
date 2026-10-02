@@ -6,7 +6,7 @@ formularioLogin.addEventListener('submit', async (evento) => {
   const usuario = formularioLogin.usuario.value.trim();
   const password = formularioLogin.password.value;
   if (!usuario || !password) {
-    mensajeLogin.textContent = 'Completá el usuario y la contraseña.';
+    mensajeLogin.textContent = 'Completa el usuario y la contraseña.';
     return;
   }
 
@@ -20,6 +20,6 @@ formularioLogin.addEventListener('submit', async (evento) => {
     mensajeLogin.textContent = datos.mensaje;
     if (datos.exito) window.location.href = datos.redireccion;
   } catch (error) {
-    mensajeLogin.textContent = 'Abrí el sitio desde http://localhost/SynapseTech/SynapseTech/index.html usando Apache de XAMPP. No uses Live Server.';
+    mensajeLogin.textContent = 'Abre el sitio desde http://localhost/SynapseTech/SynapseTech/index.html usando Apache de XAMPP. No uses Live Server.';
   }
 });
