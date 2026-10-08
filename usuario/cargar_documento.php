@@ -12,8 +12,9 @@ if (empty($_SESSION['usuario'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cargar documento | Hospital de Clínicas</title>
     <link rel="stylesheet" href="../estilo/style.css">
+    <link rel="stylesheet" href="../estilo/documentos.css">
   </head>
-  <body>
+  <body class="documentos-page">
     <header>
       <a href="../index.html" class="enlace-logo" aria-label="Ir a la página inicial"><img src="../logo.svg" alt="Logo del Hospital de Clínicas" class="logo"></a>
       <h1>Cargar un documento</h1>

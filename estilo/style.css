@@ -73,107 +73,6 @@ main {
   color: #0057a3;
 }
 
-.panel-usuarios,
-.panel-documentos {
-  width: calc(50% - 15px);
-}
-
-.panel-documentos {
-  order: 3;
-}
-
-.admin-page main {
-  display: flex;
-  flex-direction: column;
-  max-width: 1200px;
-}
-
-.admin-page .panel-administracion {
-  order: 1;
-}
-
-.admin-page .panel-usuarios {
-  order: 2;
-}
-
-.admin-page .panel-usuarios-registrados {
-  order: 3;
-}
-
-.admin-page .panel-documentos {
-  order: 4;
-}
-
-.admin-page .panel,
-.admin-page .panel-usuarios,
-.admin-page .panel-documentos {
-  width: 100%;
-  margin-bottom: 24px;
-}
-
-.admin-page .panel-administracion {
-  border-top: 4px solid #0057a3;
-}
-
-.admin-page .panel-usuarios-registrados {
-  overflow: hidden;
-}
-
-.admin-page .panel-usuarios-registrados table {
-  min-width: 760px;
-}
-
-.panel-tabla-usuarios {
-  overflow: hidden;
-}
-
-.tabla-admin {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  text-align: left;
-}
-
-.tabla-admin th,
-.tabla-admin td {
-  padding: 14px 16px;
-  border-bottom: 1px solid #dfe5eb;
-  vertical-align: middle;
-}
-
-.tabla-admin th {
-  color: #ffffff;
-  background-color: #0057a3;
-  font-size: 0.9rem;
-  white-space: nowrap;
-}
-
-.tabla-admin th:first-child {
-  border-radius: 6px 0 0 0;
-}
-
-.tabla-admin th:last-child {
-  border-radius: 0 6px 0 0;
-}
-
-.tabla-admin tbody tr:nth-child(even) {
-  background-color: #f5f8fb;
-}
-
-.tabla-admin tbody tr:hover {
-  background-color: #eaf3fb;
-}
-
-.tabla-usuarios th,
-.tabla-usuarios td {
-  padding-left: 18px;
-  padding-right: 18px;
-}
-
-.tabla-admin button {
-  margin: 3px 4px 3px 0;
-}
-
 .barra {
   display: flex;
   align-items: center;
@@ -322,11 +221,6 @@ footer p {
   .tarjeta {
     width: 100%;
     max-width: 320px;
-  }
-
-  .panel-usuarios,
-  .panel-documentos {
-    width: 100%;
   }
 
   .barra {
