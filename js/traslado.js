@@ -1,5 +1,3 @@
-// Seguimiento de traslados (admin/traslados.php): listado, filtro y cambio de estado.
-
 const listaTraslados = document.getElementById('listaTraslados');
 const mensajeTraslado = document.getElementById('mensajeTraslado');
 const filtroTraslados = document.getElementById('filtroTraslados');
@@ -18,7 +16,6 @@ function agregarCelda(fila, valor) {
   fila.appendChild(celda);
 }
 
-// Pasa "2026-10-20 08:30:00" (formato de MySQL) a "20/10/2026 08:30".
 function formatearFecha(fecha) {
   if (!fecha) return '';
   const [dia, hora] = fecha.split(' ');
@@ -26,7 +23,6 @@ function formatearFecha(fecha) {
   return `${numeroDia}/${mes}/${anio} ${hora.slice(0, 5)}`;
 }
 
-// Muestra solo las filas cuyo paciente o vehículo contiene el texto buscado.
 function filtrarTraslados() {
   const texto = filtroTraslados.value.trim().toLowerCase();
   listaTraslados.querySelectorAll('tr').forEach((fila) => {
@@ -37,7 +33,6 @@ function filtrarTraslados() {
 
 function crearFila(traslado) {
   const fila = document.createElement('tr');
-  // Texto en minúsculas por el que se puede buscar esta fila desde el filtro.
   fila.dataset.busqueda = `${traslado.paciente_nombre} ${traslado.paciente_ci} ${traslado.matricula}`.toLowerCase();
   agregarCelda(fila, traslado.paciente_nombre || traslado.paciente_ci);
   agregarCelda(fila, traslado.matricula);
@@ -73,7 +68,6 @@ function crearFila(traslado) {
   botonCancelar.dataset.cancelar = traslado.id;
   botonCancelar.textContent = 'Cancelar';
 
-  // Un traslado finalizado o cancelado ya está cerrado: no se puede cambiar.
   const cerrado = traslado.estado === 'Finalizado' || traslado.estado === 'Cancelado';
   selectorEstado.disabled = cerrado;
   botonActualizar.disabled = cerrado;
@@ -102,7 +96,7 @@ async function cargarTraslados() {
   }
 
   resultado.traslados.forEach((traslado) => listaTraslados.appendChild(crearFila(traslado)));
-  filtrarTraslados(); // mantiene el filtro después de recargar la tabla
+  filtrarTraslados();
 }
 
 filtroTraslados.addEventListener('input', filtrarTraslados);

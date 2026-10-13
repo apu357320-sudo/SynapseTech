@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:wght@600;700&display=swap');
 
-/* ===== Base ===== */
 * {
   box-sizing: border-box;
 }
@@ -20,7 +19,6 @@ a {
   color: #1f5c4a;
 }
 
-/* ===== Header ===== */
 header {
   display: flex;
   align-items: center;
@@ -66,7 +64,6 @@ header p,
   color: #5f6a63;
 }
 
-/* ===== Contenido ===== */
 main {
   display: flex;
   flex-wrap: wrap;
@@ -81,7 +78,6 @@ main {
   padding: 36px 20px;
 }
 
-/* ===== Paneles y tarjetas (hojas de la ficha) ===== */
 .panel {
   width: 100%;
   background-color: #fffdf8;
@@ -126,7 +122,6 @@ main {
   margin-top: 0;
 }
 
-/* ===== Formularios ===== */
 form,
 .formulario {
   display: flex;
@@ -135,7 +130,6 @@ form,
   text-align: left;
 }
 
-/* En los paneles anchos el formulario no ocupa todo el ancho */
 .panel form {
   max-width: 560px;
 }
@@ -162,7 +156,6 @@ select {
   color: #26302b;
 }
 
-/* Cuando el input está adentro del label */
 label input,
 label select {
   margin-top: 4px;
@@ -185,7 +178,6 @@ select:focus {
   color: #1f5c4a;
 }
 
-/* ===== Botones ===== */
 button {
   padding: 7px 12px;
   border: 1px solid #1f5c4a;
@@ -248,12 +240,10 @@ button:hover {
   color: #153f33;
 }
 
-/* ===== Tablas ===== */
 .tabla-contenedor {
   overflow-x: auto;
 }
 
-/* ===== Código QR ===== */
 .contenedor-qr {
   display: flex;
   justify-content: center;
@@ -268,7 +258,6 @@ button:hover {
   border: 1px solid #c9c2ae;
 }
 
-/* ===== Footer ===== */
 footer {
   padding: 16px 20px;
   background-color: #fffdf8;
@@ -282,7 +271,6 @@ footer p {
   margin: 3px 0;
 }
 
-/* ===== Pantallas chicas ===== */
 @media (max-width: 600px) {
   header {
     flex-direction: column;
@@ -304,7 +292,6 @@ footer p {
   }
 }
 
-/* ===== Barra de bienvenida ===== */
 .barra-usuario {
   display: flex;
   align-items: center;
@@ -344,7 +331,6 @@ h2.subtitulo-panel {
   color: #153f33;
 }
 
-/* ===== Tarjetas de acción (una por opción del panel) ===== */
 .tarjeta-accion {
   display: flex;
   flex-direction: column;
@@ -360,7 +346,6 @@ h2.subtitulo-panel {
   background-color: #f1f7f3;
 }
 
-/* Rayita de color arriba del título */
 .tarjeta-accion .icono {
   width: 34px;
   height: 4px;
@@ -381,7 +366,6 @@ h2.subtitulo-panel {
   color: #5f6a63;
 }
 
-/* Cada tipo de acción tiene su color en el borde izquierdo */
 .tarjeta-accion[data-tipo="traslado-nuevo"] {
   border-left-color: #1f5c4a;
 }

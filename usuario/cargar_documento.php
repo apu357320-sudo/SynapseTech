@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../php/sesion.php';
-exigirSesionPagina(); // cualquier usuario con sesión iniciada
+exigirSesionPagina();
 ?>
 <!doctype html>
 <html lang="es">
@@ -25,7 +25,6 @@ exigirSesionPagina(); // cualquier usuario con sesión iniciada
           <label for="titulo">Título</label>
           <input id="titulo" name="titulo" required>
 
-          <!-- Las categorías las carga documentos.js desde la base de datos -->
           <label for="categoria">Categoría</label>
           <select id="categoria" name="id_categoria" required>
             <option value="">Seleccionar</option>

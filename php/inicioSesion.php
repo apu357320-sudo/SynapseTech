@@ -18,7 +18,6 @@ if (!$usuario || !password_verify($password, $usuario['password_hash'])) {
 }
 
 session_start();
-// Cambia el id de la sesión al entrar, para que no sirva un id robado de antes del login.
 session_regenerate_id(true);
 $_SESSION['usuario'] = $usuario['nombre_usuario'];
 $_SESSION['id_usuario'] = (int) $usuario['id_usuario'];

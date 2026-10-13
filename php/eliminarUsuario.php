@@ -18,7 +18,6 @@ if ((int) $documentos->get_result()->fetch_assoc()['total'] > 0) {
 $stmt = $conn->prepare('DELETE FROM usuario WHERE id_usuario = ?');
 $stmt->bind_param('i', $id);
 if (!$stmt->execute()) {
-    // 1451: otra tabla todavía lo referencia (un chofer o enfermero con traslados).
     $mensaje = $stmt->errno === 1451 ? 'No puedes eliminar un usuario que tiene traslados asociados.' : 'No se pudo eliminar el usuario.';
     responder(['exito' => false, 'mensaje' => $mensaje], 422);
 }

@@ -1,20 +1,12 @@
-// Encuestas de satisfacción. Lo usan dos páginas:
-//  - usuario/encuesta.html: el formulario que completa el paciente.
-//  - admin/encuestas_panel.html: los resultados para el administrador.
-// Cada parte corre solo si su elemento existe en la página.
-
 const formularioEncuesta = document.getElementById('formularioEncuesta');
 const panelEncuestas = document.getElementById('panelEncuestas');
 const mensajeEncuesta = document.getElementById('mensajeEncuesta');
-
-// ---------- Formulario del paciente ----------
 
 if (formularioEncuesta) {
   formularioEncuesta.addEventListener('submit', async (evento) => {
     evento.preventDefault();
     mensajeEncuesta.className = 'mensaje';
 
-    // Validación en el navegador (el PHP valida de nuevo).
     const datos = new FormData(formularioEncuesta);
     if (!datos.get('servicio') || !datos.get('calificacion') || !datos.get('claridad')) {
       mensajeEncuesta.textContent = 'Completa el servicio, la calificación y si la información fue clara.';
@@ -27,7 +19,7 @@ if (formularioEncuesta) {
       mensajeEncuesta.textContent = resultado.mensaje;
       if (resultado.exito) {
         mensajeEncuesta.className = 'mensaje exito';
-        formularioEncuesta.style.display = 'none'; // para que no se envíe dos veces
+        formularioEncuesta.style.display = 'none';
       }
     } catch (error) {
       mensajeEncuesta.textContent = 'No se pudo contactar con el servidor.';
@@ -35,9 +27,6 @@ if (formularioEncuesta) {
   });
 }
 
-// ---------- Panel de resultados ----------
-
-// Agrega una fila con el nombre, la cantidad y una barra proporcional al total.
 function agregarFilaResultado(tabla, nombre, cantidad, total) {
   const fila = document.createElement('tr');
   const celdaNombre = document.createElement('td');
@@ -57,7 +46,6 @@ function agregarFilaResultado(tabla, nombre, cantidad, total) {
 
 async function cargarResultados() {
   const respuesta = await fetch('../php/reportes.php');
-  // 401: no hay sesión. 403: no es administrador. En los dos casos se vuelve al login.
   if (respuesta.status === 401 || respuesta.status === 403) {
     window.location.href = '../index.html';
     return;
@@ -83,7 +71,6 @@ async function cargarResultados() {
   const listaComentarios = document.getElementById('listaComentarios');
   datos.comentarios.forEach((comentario) => {
     const elemento = document.createElement('li');
-    // textContent para que un comentario con etiquetas HTML se vea como texto.
     elemento.textContent = `${comentario.fecha.slice(0, 10)} — ${comentario.texto}`;
     listaComentarios.appendChild(elemento);
   });

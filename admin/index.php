@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../php/sesion.php';
-exigirSesionPagina(true); // solo administradores
+exigirSesionPagina(true);
 ?>
 <!doctype html>
 <html lang="es">
@@ -59,7 +59,6 @@ exigirSesionPagina(true); // solo administradores
 				<div class="tabla-contenedor">
 					<table class="tabla-admin"><thead><tr><th>Título</th><th>Categoría</th><th>Archivo</th><th>Fecha</th><th>Acciones</th></tr></thead><tbody id="tablaDocumentos"></tbody></table>
 				</div>
-				<!-- Acá aparece el QR del documento cuando se aprieta "Ver QR" -->
 				<p id="textoQr" class="texto-qr"></p>
 				<div id="qrDocumento" class="contenedor-qr"></div>
 			</section>

@@ -1,11 +1,8 @@
-// Panel de administración (admin/index.php): usuarios y documentos.
-
 const mensajeAdmin = document.getElementById('mensajeAdmin');
 const tablaUsuarios = document.getElementById('tablaUsuarios');
 const tablaDocumentos = document.getElementById('tablaDocumentos');
 const formularioUsuario = document.getElementById('formularioUsuario');
 
-// Usuarios de la última carga, para tener sus datos a mano al editar.
 let usuariosCargados = [];
 
 async function enviar(url, datos) {
@@ -18,15 +15,12 @@ function mostrarMensaje(respuesta) {
   mensajeAdmin.className = respuesta.exito ? 'mensaje exito' : 'mensaje';
 }
 
-// Las celdas se cargan con textContent y no con innerHTML: así, si un dato
-// trae etiquetas HTML, se muestra como texto y no se ejecuta.
 function agregarCelda(fila, texto) {
   const celda = document.createElement('td');
   celda.textContent = texto;
   fila.appendChild(celda);
 }
 
-// Crea un botón que guarda el id en un atributo data-*, por ejemplo data-editar="5".
 function crearBoton(texto, nombreDato, id) {
   const boton = document.createElement('button');
   boton.type = 'button';
@@ -34,8 +28,6 @@ function crearBoton(texto, nombreDato, id) {
   boton.dataset[nombreDato] = id;
   return boton;
 }
-
-// ---------- Usuarios ----------
 
 async function cargarUsuarios() {
   const datos = await (await fetch('../php/usuarios.php')).json();
@@ -81,7 +73,6 @@ tablaUsuarios.addEventListener('click', async (evento) => {
     if (!confirm('¿Quieres eliminar este usuario?')) return;
     mostrarMensaje(await enviar('../php/eliminarUsuario.php', datos));
   } else {
-    // Los cuadros de diálogo ya vienen con el valor actual para no escribirlo de nuevo.
     const usuario = usuariosCargados.find((uno) => String(uno.id_usuario) === id);
     const nombre = prompt('Nuevo nombre completo:', usuario.nombre_completo);
     const email = prompt('Nuevo email:', usuario.email);
@@ -98,18 +89,14 @@ tablaUsuarios.addEventListener('click', async (evento) => {
   cargarUsuarios();
 });
 
-// ---------- Documentos ----------
-
 const filtroCategoria = document.getElementById('filtroCategoria');
 const qrDocumento = document.getElementById('qrDocumento');
 const textoQr = document.getElementById('textoQr');
 let categoriasCargadas = false;
 
-// Pide los documentos de la categoría elegida en el filtro (o todos).
 async function cargarDocumentosAdmin() {
   const datos = await (await fetch(`../php/obtener_doc.php?categoria=${filtroCategoria.value}`)).json();
 
-  // Las opciones del filtro se cargan una sola vez.
   if (!categoriasCargadas) {
     datos.categorias.forEach((categoria) => {
       const opcion = document.createElement('option');
@@ -140,10 +127,9 @@ filtroCategoria.addEventListener('change', cargarDocumentosAdmin);
 tablaDocumentos.addEventListener('click', async (evento) => {
   const boton = evento.target;
 
-  // QR del documento: lleva a la vista de pacientes con ese documento ya elegido.
   if (boton.dataset.docQr) {
     const direccion = new URL(`../usuario/paciente.html?id=${boton.dataset.docQr}`, window.location.href).href;
-    dibujarQr(qrDocumento, direccion); // función de qr.js
+    dibujarQr(qrDocumento, direccion);
     textoQr.textContent = `Código QR de "${boton.closest('tr').cells[0].textContent}": ${direccion}`;
     return;
   }

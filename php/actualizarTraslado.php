@@ -18,8 +18,6 @@ if ($estado === 'Finalizado') {
     $stmt->bind_param('si', $estado, $id);
 }
 $stmt->execute();
-// Si no cambió ninguna fila es porque el traslado no existe, ya estaba cerrado
-// (finalizado o cancelado) o ya tenía ese mismo estado.
 if ($stmt->affected_rows < 1) {
     responder(['exito' => false, 'mensaje' => 'No se pudo cambiar el estado: el traslado ya está cerrado o ya tenía ese estado.'], 422);
 }

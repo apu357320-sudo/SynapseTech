@@ -1,17 +1,14 @@
 <?php
-// Alta de un usuario desde el panel de administración.
 require_once __DIR__ . '/conexion.php';
 require_once __DIR__ . '/sesion.php';
 exigirSesion(true);
 
-// 1) Recibir los datos (numeroId es la cédula: el usuario entra con ella)
 $password = $_POST['password'] ?? '';
 $nombreCompleto = limpiar($_POST['nombre_completo'] ?? '');
 $email = limpiar($_POST['email'] ?? '');
 $rol = limpiar($_POST['rol'] ?? '');
 $numeroId = limpiar($_POST['numeroId'] ?? '');
 
-// 2) Validar
 if ($password === '' || $nombreCompleto === '' || $email === '' || $rol === '' || $numeroId === '') {
     responder(['exito' => false, 'mensaje' => 'Completa todos los campos.'], 422);
 }
@@ -24,7 +21,6 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     responder(['exito' => false, 'mensaje' => 'El email no es válido.'], 422);
 }
 
-// La tabla guarda nombre y apellido separados: la última palabra es el apellido.
 $partesNombre = preg_split('/\s+/', $nombreCompleto);
 $apellido = array_pop($partesNombre);
 $nombre = implode(' ', $partesNombre);
@@ -39,15 +35,11 @@ if (!$rolEncontrado) {
 }
 $idRol = (int) $rolEncontrado['id_rol'];
 
-// 3) Guardar. Un chofer o un enfermero necesita además su fila en la tabla
-//    chofer o enfermero (si no, no aparece al crear un traslado). Son dos
-//    INSERT que dependen uno del otro, por eso van en una transacción.
 $conn->begin_transaction();
 
 $stmt = $conn->prepare('INSERT INTO usuario (ci, nombre, apellido, email, contrasena, estado, id_rol) VALUES (?, ?, ?, ?, ?, 1, ?)');
 $stmt->bind_param('sssssi', $numeroId, $nombre, $apellido, $email, $hash, $idRol);
 if (!$stmt->execute()) {
-    // 1062: se repite un valor que es UNIQUE (la cédula o el email).
     $mensaje = $stmt->errno === 1062 ? 'La cédula o el email ya existe.' : 'No se pudo registrar el usuario.';
     $conn->rollback();
     responder(['exito' => false, 'mensaje' => $mensaje], 422);

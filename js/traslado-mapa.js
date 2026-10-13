@@ -1,6 +1,3 @@
-// Formulario de alta de traslado (admin/traslado_form.php):
-// mapa de Leaflet, carga de opciones, validación y envío al servidor.
-
 const formulario = document.getElementById('trasladoForm');
 const mensajeFormulario = document.getElementById('mensajeTrasladoForm');
 const estadoMapa = document.getElementById('estadoMapa');
@@ -8,20 +5,14 @@ const botonRegistrar = document.getElementById('registrar');
 const botonCancelar = document.getElementById('cancelar');
 const botonesUbicacion = document.querySelectorAll('[data-ubicacion]');
 
-// Coordenadas [latitud, longitud] del Hospital de Clínicas (Av. Italia, Montevideo).
 const HOSPITAL = [-34.8914, -56.1519];
-// Rectángulo que encierra a Uruguay: [esquina suroeste, esquina noreste].
-// Tiene que coincidir con los límites de php/guardarTraslado.php.
 const LIMITES_URUGUAY = L.latLngBounds([-35.1, -58.5], [-30.0, -53.0]);
 
-// ---------- Mapa ----------
-
 const mapa = L.map('mapaTraslado', {
-  maxBounds: LIMITES_URUGUAY.pad(0.2), // no deja alejarse mucho del país
+  maxBounds: LIMITES_URUGUAY.pad(0.2),
   minZoom: 6
 }).setView(HOSPITAL, 14);
 
-// Las imágenes del mapa las da OpenStreetMap (gratis, sin clave).
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: '&copy; OpenStreetMap contributors'
@@ -29,16 +20,14 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 const marcadores = { origen: null, destino: null };
 const lineaRecorrido = L.polyline([], { color: '#1f5c4a', dashArray: '6 8' }).addTo(mapa);
-let ubicacionActiva = 'destino'; // el origen ya arranca en el hospital
+let ubicacionActiva = 'destino';
 
-// Copia las coordenadas del marcador a los <input type="hidden"> del formulario.
 function guardarCoordenadas(ubicacion, coordenadas) {
   formulario.elements[`${ubicacion}_lat`].value = coordenadas.lat.toFixed(6);
   formulario.elements[`${ubicacion}_lng`].value = coordenadas.lng.toFixed(6);
   actualizarRecorrido();
 }
 
-// Crea el marcador la primera vez y después solo lo mueve.
 function colocarMarcador(ubicacion, coordenadas) {
   if (marcadores[ubicacion]) {
     marcadores[ubicacion].setLatLng(coordenadas);
@@ -58,7 +47,6 @@ function colocarMarcador(ubicacion, coordenadas) {
   guardarCoordenadas(ubicacion, coordenadas);
 }
 
-// Une el origen con el destino y muestra la distancia en línea recta.
 function actualizarRecorrido() {
   if (!marcadores.origen || !marcadores.destino) return;
   const puntos = [marcadores.origen.getLatLng(), marcadores.destino.getLatLng()];
@@ -85,8 +73,6 @@ mapa.on('click', (evento) => {
 
 colocarMarcador('origen', L.latLng(HOSPITAL));
 
-// ---------- Opciones de los select ----------
-
 function llenarSelect(select, opciones) {
   opciones.forEach((opcion) => {
     const elemento = document.createElement('option');
@@ -109,9 +95,6 @@ cargarOpciones().catch((error) => {
   mensajeFormulario.textContent = error.message;
 });
 
-// ---------- Búsqueda del paciente por cédula ----------
-
-// Pide los datos del paciente a php/apiPacientes.php y completa nombre y apellido.
 document.getElementById('buscarCi').addEventListener('click', async () => {
   const ci = formulario.elements.paciente_ci.value.trim();
   const respuesta = await fetch(`../php/apiPacientes.php?ci=${encodeURIComponent(ci)}`);
@@ -125,9 +108,6 @@ document.getElementById('buscarCi').addEventListener('click', async () => {
   formulario.elements.paciente_apellido.value = datos.paciente.apellido;
 });
 
-// ---------- Validación (frontend) ----------
-
-// Escribe el texto de error debajo del campo. Con texto vacío, lo borra.
 function mostrarError(idError, texto) {
   document.getElementById(idError).textContent = texto;
   return texto === '';
@@ -141,7 +121,6 @@ function validarFormulario() {
     && LIMITES_URUGUAY.contains(marcadores.origen.getLatLng())
     && LIMITES_URUGUAY.contains(marcadores.destino.getLatLng());
 
-  // Cada línea devuelve true si ese campo está bien.
   const resultados = [
     mostrarError('ciError', /^\d{7,8}$/.test(campos.paciente_ci.value.trim()) ? '' : 'La cédula debe tener 7 u 8 dígitos, sin puntos ni guion.'),
     mostrarError('nombreError', campos.paciente_nombre.value.trim() ? '' : 'Ingresa el nombre.'),
@@ -152,14 +131,11 @@ function validarFormulario() {
     mostrarError('origenError', campos.origen.value.trim() ? '' : 'Ingresa el origen.'),
     mostrarError('destinoError', campos.destino.value.trim() ? '' : 'Ingresa el destino.'),
     mostrarError('salidaError', salida ? '' : 'Ingresa la hora de salida.'),
-    // Las fechas vienen como "2026-10-12T14:30", por eso se pueden comparar como texto.
     mostrarError('llegadaError', llegada && llegada <= salida ? 'La llegada estimada debe ser posterior a la salida.' : ''),
     mostrarError('mapaError', marcadoresEnUruguay ? '' : 'Marca el destino en el mapa, dentro de Uruguay.')
   ];
   return resultados.every((correcto) => correcto);
 }
-
-// ---------- Envío ----------
 
 formulario.addEventListener('submit', async (evento) => {
   evento.preventDefault();
@@ -178,7 +154,6 @@ formulario.addEventListener('submit', async (evento) => {
     if (!respuesta.ok || !resultado.exito) throw new Error(resultado.mensaje || 'No se pudo guardar el traslado.');
     mensajeFormulario.textContent = resultado.mensaje;
     mensajeFormulario.className = 'mensaje exito';
-    // Deja leer el mensaje y pasa al seguimiento de traslados.
     setTimeout(() => { window.location.href = 'traslados.php'; }, 1200);
   } catch (error) {
     mensajeFormulario.textContent = error.message;

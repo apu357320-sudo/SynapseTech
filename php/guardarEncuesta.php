@@ -1,22 +1,17 @@
 <?php
-// Guarda una respuesta de la encuesta de satisfacción (usuario/encuesta.html).
-// Es anónima: no pide sesión y no guarda quién responde (ni usuario, ni cédula).
 require_once __DIR__ . '/conexion.php';
 
-// La encuesta y sus preguntas ya están cargadas en la base (tablas encuesta y pregunta).
 const ID_ENCUESTA = 1;
 const PREGUNTA_SERVICIO = 1;
 const PREGUNTA_CALIFICACION = 2;
 const PREGUNTA_CLARIDAD = 3;
 const PREGUNTA_COMENTARIO = 4;
 
-// 1) Recibir los datos
 $servicio = limpiar($_POST['servicio'] ?? '');
 $calificacion = (int) ($_POST['calificacion'] ?? 0);
 $claridad = limpiar($_POST['claridad'] ?? '');
 $comentario = limpiar($_POST['comentario'] ?? '');
 
-// 2) Validar: solo se aceptan las mismas opciones que ofrece el formulario
 $servicios = ['Nefrología', 'Imagenología', 'Cardiología', 'Urología', 'Ginecología', 'Otro'];
 if (!in_array($servicio, $servicios, true)) {
     responder(['exito' => false, 'mensaje' => 'Selecciona el servicio que quieres evaluar.'], 422);
@@ -39,15 +34,13 @@ if (!$stmt->get_result()->fetch_assoc()) {
     responder(['exito' => false, 'mensaje' => 'La encuesta no está disponible.'], 404);
 }
 
-// 3) Guardar. Una respuesta es una fila en respuesta_encuesta y una fila en
-//    detalle_respuesta por cada pregunta contestada. Va todo en una transacción.
 $respuestas = [
     PREGUNTA_SERVICIO => $servicio,
     PREGUNTA_CALIFICACION => (string) $calificacion,
     PREGUNTA_CLARIDAD => $claridad,
 ];
 if ($comentario !== '') {
-    $respuestas[PREGUNTA_COMENTARIO] = $comentario; // el comentario es opcional
+    $respuestas[PREGUNTA_COMENTARIO] = $comentario;
 }
 
 $conn->begin_transaction();

@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../php/sesion.php';
-exigirSesionPagina(true); // solo administradores
+exigirSesionPagina(true);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -58,7 +58,6 @@ exigirSesionPagina(true); // solo administradores
           <fieldset class="traslado-datos">
             <legend>Datos del Traslado</legend>
 
-            <!-- Las opciones de los tres select las carga traslado-mapa.js desde la base de datos -->
             <div class="form-grid">
               <div>
                 <label for="conductor">Conductor</label>
@@ -115,7 +114,6 @@ exigirSesionPagina(true); // solo administradores
               </div>
             </div>
 
-            <!-- Coordenadas elegidas en el mapa. Las completa traslado-mapa.js. -->
             <input type="hidden" name="origen_lat" />
             <input type="hidden" name="origen_lng" />
             <input type="hidden" name="destino_lat" />

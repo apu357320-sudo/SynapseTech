@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../php/sesion.php';
-exigirSesionPagina(true); // solo administradores
+exigirSesionPagina(true);
 ?>
 <!doctype html>
 <html lang="es">

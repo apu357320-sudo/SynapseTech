@@ -1,8 +1,4 @@
 <?php
-// Busca los datos de un paciente por su cédula.
-// Hoy consulta la tabla paciente del propio sistema (simula la API externa
-// que pide la letra). Si el hospital da acceso a su API real, alcanza con
-// cambiar la consulta de este archivo: el formulario no se entera.
 require_once __DIR__ . '/conexion.php';
 require_once __DIR__ . '/sesion.php';
 exigirSesion();

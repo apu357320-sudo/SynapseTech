@@ -1,8 +1,6 @@
 <?php
 require_once __DIR__ . '/conexion.php';
 
-// Solo se permite si todavía no hay ningún administrador (id_rol = 1).
-// No alcanza con contar usuarios: los datos de prueba cargan choferes y enfermeros.
 $conteo = $conn->query('SELECT COUNT(*) AS total FROM usuario WHERE id_rol = 1')->fetch_assoc();
 if ((int) $conteo['total'] > 0) {
     responder(['exito' => false, 'mensaje' => 'La configuración inicial ya fue realizada.'], 403);

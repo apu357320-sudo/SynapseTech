@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../php/sesion.php';
-exigirSesionPagina(true); // solo administradores
+exigirSesionPagina(true);
 ?>
 <!doctype html>
 <html lang="es">
@@ -21,7 +21,6 @@ exigirSesionPagina(true); // solo administradores
 		</header>
 		<main>
 			<section class="panel">
-				<!-- Filtro del historial: lo usa traslado.js para ocultar las filas que no coinciden -->
 				<label for="filtroTraslados">Filtrar por paciente o vehículo</label>
 				<input type="search" id="filtroTraslados" class="filtro-traslados" placeholder="Nombre, cédula o matrícula">
 				<p id="mensajeTraslado" class="mensaje"></p>
