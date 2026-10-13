@@ -1,14 +1,26 @@
 <?php
+// Alta de un documento: guarda el archivo en la carpeta documentos/
+// y sus datos (título, categoría, ruta) en la tabla documento.
 require_once __DIR__ . '/conexion.php';
 require_once __DIR__ . '/sesion.php';
 exigirSesion();
 
+// 1) Recibir los datos
 $titulo = limpiar($_POST['titulo'] ?? '');
+$idCategoria = (int) ($_POST['id_categoria'] ?? 0);
 $archivo = $_FILES['archivo'] ?? null;
 $extensionesPermitidas = ['pdf', 'jpg', 'jpeg', 'png', 'gif', 'doc', 'docx'];
 
+// 2) Validar
 if ($titulo === '' || !$archivo || $archivo['error'] !== UPLOAD_ERR_OK) {
-    responder(['exito' => false, 'mensaje' => 'Indicá un título y seleccioná un archivo.'], 422);
+    responder(['exito' => false, 'mensaje' => 'Indica un título y selecciona un archivo.'], 422);
+}
+
+$stmt = $conn->prepare('SELECT id_categoria FROM categoria_documento WHERE id_categoria = ?');
+$stmt->bind_param('i', $idCategoria);
+$stmt->execute();
+if (!$stmt->get_result()->fetch_assoc()) {
+    responder(['exito' => false, 'mensaje' => 'Selecciona una categoría.'], 422);
 }
 
 $extension = strtolower(pathinfo($archivo['name'], PATHINFO_EXTENSION));
@@ -16,6 +28,7 @@ if (!in_array($extension, $extensionesPermitidas, true)) {
     responder(['exito' => false, 'mensaje' => 'Tipo de archivo no permitido.'], 422);
 }
 
+// 3) Guardar el archivo con un nombre único, para que no se pisen dos con el mismo nombre
 if (!is_dir(RUTA_DOCUMENTOS) && !mkdir(RUTA_DOCUMENTOS, 0755, true)) {
     responder(['exito' => false, 'mensaje' => 'No se pudo crear la carpeta de documentos.'], 500);
 }
@@ -28,13 +41,14 @@ if (!move_uploaded_file($archivo['tmp_name'], $rutaFisica)) {
     responder(['exito' => false, 'mensaje' => 'No se pudo guardar el archivo.'], 500);
 }
 
+// 4) Guardar los datos. En descripcion queda el nombre original del archivo.
 $idUsuario = (int) $_SESSION['id_usuario'];
 $fechaSubida = date('Y-m-d');
-$idCategoria = 1;
 $stmt = $conn->prepare('INSERT INTO documento (titulo, descripcion, ruta_archivo, fecha_subida, id_categoria, id_usuario_admin) VALUES (?, ?, ?, ?, ?, ?)');
 $stmt->bind_param('ssssii', $titulo, $archivo['name'], $rutaBase, $fechaSubida, $idCategoria, $idUsuario);
 
 if (!$stmt->execute()) {
+    // Si la base falla, se borra el archivo para no dejarlo suelto.
     unlink($rutaFisica);
     responder(['exito' => false, 'mensaje' => 'No se pudo guardar el documento en la base de datos.'], 500);
 }

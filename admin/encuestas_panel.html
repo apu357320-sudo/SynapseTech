@@ -2,13 +2,57 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
-	<title>Panel de encuestas</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Resultados de encuestas | Hospital de Clínicas</title>
 	<link rel="stylesheet" href="../estilo/style.css">
+	<link rel="stylesheet" href="../estilo/administracion.css">
 </head>
-<body>
+<!-- Esta página es .html, así que la protección está en php/reportes.php:
+     sin sesión de administrador no entrega datos y encuestas.js vuelve al login. -->
+<body class="admin-page">
 	<header>
-		<a href="../index.html" class="enlace-logo" aria-label="Ir a la página inicial"><img src="../logo.svg" alt="Logo del Hospital de Clínicas" class="logo"></a>
-		<h1>Panel de encuestas</h1>
+		<a href="index.php" class="enlace-logo" aria-label="Ir al panel de administración"><img src="../logo.svg" alt="Logo del Hospital de Clínicas" class="logo"></a>
+		<div>
+			<h1>Resultados de encuestas</h1>
+			<p>Encuesta de satisfacción anónima</p>
+		</div>
 	</header>
+
+	<main id="panelEncuestas">
+		<section class="panel">
+			<div class="barra">
+				<h2>Indicadores</h2>
+				<a class="boton-secundario" href="index.php">Volver</a>
+			</div>
+			<p id="mensajeEncuesta" class="mensaje"></p>
+			<div class="indicadores">
+				<div class="indicador"><span id="totalRespuestas">0</span><p>Respuestas</p></div>
+				<div class="indicador"><span id="promedio">0</span><p>Calificación promedio (de 5)</p></div>
+				<div class="indicador"><span id="porcentajeSatisfechos">0%</span><p>Satisfechos (4 o 5)</p></div>
+				<div class="indicador"><span id="porcentajeClaro">0%</span><p>Información clara</p></div>
+			</div>
+		</section>
+
+		<section class="panel">
+			<h2>Calificaciones</h2>
+			<div class="tabla-contenedor">
+				<table class="tabla-admin"><thead><tr><th>Calificación</th><th>Respuestas</th><th>Proporción</th></tr></thead><tbody id="tablaCalificaciones"></tbody></table>
+			</div>
+		</section>
+
+		<section class="panel">
+			<h2>Respuestas por servicio</h2>
+			<div class="tabla-contenedor">
+				<table class="tabla-admin"><thead><tr><th>Servicio</th><th>Respuestas</th><th>Proporción</th></tr></thead><tbody id="tablaServicios"></tbody></table>
+			</div>
+		</section>
+
+		<section class="panel">
+			<h2>Últimos comentarios</h2>
+			<ul id="listaComentarios" class="comentarios"></ul>
+		</section>
+	</main>
+
+	<script src="../js/encuestas.js"></script>
 </body>
 </html>

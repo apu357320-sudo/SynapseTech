@@ -1,0 +1,4 @@
+# Configuración local de herramientas (no es parte del proyecto)
+.claude/
+.mcp.json
+skills-lock.json

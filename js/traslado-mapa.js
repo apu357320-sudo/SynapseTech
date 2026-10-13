@@ -1,90 +1,191 @@
-(() => {
-  const mapElement = document.getElementById('mapaTraslado');
-  const originInput = document.getElementById('origen');
-  const destinationInput = document.getElementById('destino');
-  const status = document.getElementById('estadoMapa');
-  const form = document.getElementById('trasladoForm');
-  const formMessage = document.getElementById('mensajeTrasladoForm');
-  const submitButton = document.getElementById('registrar');
-  const cancelButton = document.getElementById('cancelar');
-  const targetButtons = document.querySelectorAll('[data-ubicacion]');
+// Formulario de alta de traslado (admin/traslado_form.php):
+// mapa de Leaflet, carga de opciones, validación y envío al servidor.
 
-  if (!mapElement || !originInput || !destinationInput || !window.L) return;
+const formulario = document.getElementById('trasladoForm');
+const mensajeFormulario = document.getElementById('mensajeTrasladoForm');
+const estadoMapa = document.getElementById('estadoMapa');
+const botonRegistrar = document.getElementById('registrar');
+const botonCancelar = document.getElementById('cancelar');
+const botonesUbicacion = document.querySelectorAll('[data-ubicacion]');
 
-  const origin = [-34.8872, -56.1585];
-  const map = L.map(mapElement).setView(origin, 14);
-  let target = 'origen';
-  let originMarker;
-  let destinationMarker;
+// Coordenadas [latitud, longitud] del Hospital de Clínicas (Av. Italia, Montevideo).
+const HOSPITAL = [-34.8914, -56.1519];
+// Rectángulo que encierra a Uruguay: [esquina suroeste, esquina noreste].
+// Tiene que coincidir con los límites de php/guardarTraslado.php.
+const LIMITES_URUGUAY = L.latLngBounds([-35.1, -58.5], [-30.0, -53.0]);
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
+// ---------- Mapa ----------
 
-  function saveCoordinates(input, coordinates) {
-    input.value = `Coordenadas: ${coordinates.lat.toFixed(6)}, ${coordinates.lng.toFixed(6)}`;
-  }
+const mapa = L.map('mapaTraslado', {
+  maxBounds: LIMITES_URUGUAY.pad(0.2), // no deja alejarse mucho del país
+  minZoom: 6
+}).setView(HOSPITAL, 14);
 
-  function setMarker(location, coordinates, updateField = true) {
-    const input = location === 'origen' ? originInput : destinationInput;
-    const marker = location === 'origen' ? originMarker : destinationMarker;
+// Las imágenes del mapa las da OpenStreetMap (gratis, sin clave).
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: '&copy; OpenStreetMap contributors'
+}).addTo(mapa);
 
-    if (marker) {
-      marker.setLatLng(coordinates);
-    } else {
-      const newMarker = L.marker(coordinates, { draggable: true })
-        .addTo(map)
-        .bindPopup(location === 'origen' ? 'Origen del traslado' : 'Destino del traslado');
+const marcadores = { origen: null, destino: null };
+const lineaRecorrido = L.polyline([], { color: '#1f5c4a', dashArray: '6 8' }).addTo(mapa);
+let ubicacionActiva = 'destino'; // el origen ya arranca en el hospital
 
-      newMarker.on('dragend', (event) => {
-        saveCoordinates(input, event.target.getLatLng());
-      });
+// Copia las coordenadas del marcador a los <input type="hidden"> del formulario.
+function guardarCoordenadas(ubicacion, coordenadas) {
+  formulario.elements[`${ubicacion}_lat`].value = coordenadas.lat.toFixed(6);
+  formulario.elements[`${ubicacion}_lng`].value = coordenadas.lng.toFixed(6);
+  actualizarRecorrido();
+}
 
-      if (location === 'origen') originMarker = newMarker;
-      else destinationMarker = newMarker;
-    }
-
-    if (updateField) saveCoordinates(input, coordinates);
-  }
-
-  targetButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      target = button.dataset.ubicacion;
-      targetButtons.forEach((option) => {
-        option.setAttribute('aria-pressed', String(option === button));
-      });
-      status.textContent = `Seleccionando el ${target}. Hacé clic en el mapa o arrastrá su marcador.`;
+// Crea el marcador la primera vez y después solo lo mueve.
+function colocarMarcador(ubicacion, coordenadas) {
+  if (marcadores[ubicacion]) {
+    marcadores[ubicacion].setLatLng(coordenadas);
+  } else {
+    const icono = L.divIcon({
+      className: `marcador marcador-${ubicacion}`,
+      html: ubicacion === 'origen' ? 'O' : 'D',
+      iconSize: [30, 30]
     });
+    const marcador = L.marker(coordenadas, { draggable: true, icon: icono })
+      .addTo(mapa)
+      .bindPopup(ubicacion === 'origen' ? 'Origen del traslado' : 'Destino del traslado');
+
+    marcador.on('dragend', () => guardarCoordenadas(ubicacion, marcador.getLatLng()));
+    marcadores[ubicacion] = marcador;
+  }
+  guardarCoordenadas(ubicacion, coordenadas);
+}
+
+// Une el origen con el destino y muestra la distancia en línea recta.
+function actualizarRecorrido() {
+  if (!marcadores.origen || !marcadores.destino) return;
+  const puntos = [marcadores.origen.getLatLng(), marcadores.destino.getLatLng()];
+  lineaRecorrido.setLatLngs(puntos);
+  const kilometros = (mapa.distance(puntos[0], puntos[1]) / 1000).toFixed(1);
+  estadoMapa.textContent = `Distancia en línea recta: ${kilometros} km.`;
+}
+
+botonesUbicacion.forEach((boton) => {
+  boton.addEventListener('click', () => {
+    ubicacionActiva = boton.dataset.ubicacion;
+    botonesUbicacion.forEach((otro) => otro.setAttribute('aria-pressed', String(otro === boton)));
+    estadoMapa.textContent = `Haz clic en el mapa para marcar el ${ubicacionActiva}.`;
   });
+});
 
-  map.on('click', (event) => setMarker(target, event.latlng));
-  setMarker('origen', L.latLng(origin[0], origin[1]), false);
+mapa.on('click', (evento) => {
+  if (!LIMITES_URUGUAY.contains(evento.latlng)) {
+    estadoMapa.textContent = 'Ese punto está fuera de Uruguay.';
+    return;
+  }
+  colocarMarcador(ubicacionActiva, evento.latlng);
+});
 
-  form?.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    submitButton.disabled = true;
-    formMessage.textContent = 'Guardando el traslado...';
-    formMessage.className = 'mensaje';
+colocarMarcador('origen', L.latLng(HOSPITAL));
 
-    try {
-      const response = await fetch('../php/guardarTraslado.php', {
-        method: 'POST',
-        body: new FormData(form)
-      });
-      const result = await response.json();
-      if (!response.ok || !result.exito) throw new Error(result.mensaje || 'No se pudo guardar el traslado.');
-      formMessage.textContent = result.mensaje;
-      formMessage.className = 'mensaje exito';
-    } catch (error) {
-      formMessage.textContent = error.message;
-      formMessage.className = 'mensaje';
-    } finally {
-      submitButton.disabled = false;
-    }
+// ---------- Opciones de los select ----------
+
+function llenarSelect(select, opciones) {
+  opciones.forEach((opcion) => {
+    const elemento = document.createElement('option');
+    elemento.value = opcion.valor;
+    elemento.textContent = opcion.texto;
+    select.appendChild(elemento);
   });
+}
 
-  cancelButton?.addEventListener('click', () => {
-    window.location.href = 'traslados.php';
-  });
-})();
+async function cargarOpciones() {
+  const respuesta = await fetch('../php/opcionesTraslado.php');
+  const datos = await respuesta.json();
+  if (!respuesta.ok || !datos.exito) throw new Error(datos.mensaje || 'No se pudieron cargar las opciones.');
+  llenarSelect(formulario.elements.ci_chofer, datos.choferes);
+  llenarSelect(formulario.elements.ci_enfermero, datos.enfermeros);
+  llenarSelect(formulario.elements.matricula, datos.vehiculos);
+}
+
+cargarOpciones().catch((error) => {
+  mensajeFormulario.textContent = error.message;
+});
+
+// ---------- Búsqueda del paciente por cédula ----------
+
+// Pide los datos del paciente a php/apiPacientes.php y completa nombre y apellido.
+document.getElementById('buscarCi').addEventListener('click', async () => {
+  const ci = formulario.elements.paciente_ci.value.trim();
+  const respuesta = await fetch(`../php/apiPacientes.php?ci=${encodeURIComponent(ci)}`);
+  const datos = await respuesta.json();
+  if (!datos.exito) {
+    mostrarError('ciError', datos.mensaje);
+    return;
+  }
+  mostrarError('ciError', '');
+  formulario.elements.paciente_nombre.value = datos.paciente.nombre;
+  formulario.elements.paciente_apellido.value = datos.paciente.apellido;
+});
+
+// ---------- Validación (frontend) ----------
+
+// Escribe el texto de error debajo del campo. Con texto vacío, lo borra.
+function mostrarError(idError, texto) {
+  document.getElementById(idError).textContent = texto;
+  return texto === '';
+}
+
+function validarFormulario() {
+  const campos = formulario.elements;
+  const salida = campos.hora_salida.value;
+  const llegada = campos.hora_llegada_estimada.value;
+  const marcadoresEnUruguay = marcadores.destino
+    && LIMITES_URUGUAY.contains(marcadores.origen.getLatLng())
+    && LIMITES_URUGUAY.contains(marcadores.destino.getLatLng());
+
+  // Cada línea devuelve true si ese campo está bien.
+  const resultados = [
+    mostrarError('ciError', /^\d{7,8}$/.test(campos.paciente_ci.value.trim()) ? '' : 'La cédula debe tener 7 u 8 dígitos, sin puntos ni guion.'),
+    mostrarError('nombreError', campos.paciente_nombre.value.trim() ? '' : 'Ingresa el nombre.'),
+    mostrarError('apellidoError', campos.paciente_apellido.value.trim() ? '' : 'Ingresa el apellido.'),
+    mostrarError('conductorError', campos.ci_chofer.value ? '' : 'Elige un conductor.'),
+    mostrarError('enfermeroError', campos.ci_enfermero.value ? '' : 'Elige un enfermero/a.'),
+    mostrarError('vehiculoError', campos.matricula.value ? '' : 'Elige un vehículo.'),
+    mostrarError('origenError', campos.origen.value.trim() ? '' : 'Ingresa el origen.'),
+    mostrarError('destinoError', campos.destino.value.trim() ? '' : 'Ingresa el destino.'),
+    mostrarError('salidaError', salida ? '' : 'Ingresa la hora de salida.'),
+    // Las fechas vienen como "2026-10-12T14:30", por eso se pueden comparar como texto.
+    mostrarError('llegadaError', llegada && llegada <= salida ? 'La llegada estimada debe ser posterior a la salida.' : ''),
+    mostrarError('mapaError', marcadoresEnUruguay ? '' : 'Marca el destino en el mapa, dentro de Uruguay.')
+  ];
+  return resultados.every((correcto) => correcto);
+}
+
+// ---------- Envío ----------
+
+formulario.addEventListener('submit', async (evento) => {
+  evento.preventDefault();
+  mensajeFormulario.className = 'mensaje';
+  if (!validarFormulario()) {
+    mensajeFormulario.textContent = 'Revisa los campos marcados.';
+    return;
+  }
+
+  botonRegistrar.disabled = true;
+  mensajeFormulario.textContent = 'Guardando el traslado...';
+
+  try {
+    const respuesta = await fetch('../php/guardarTraslado.php', { method: 'POST', body: new FormData(formulario) });
+    const resultado = await respuesta.json();
+    if (!respuesta.ok || !resultado.exito) throw new Error(resultado.mensaje || 'No se pudo guardar el traslado.');
+    mensajeFormulario.textContent = resultado.mensaje;
+    mensajeFormulario.className = 'mensaje exito';
+    // Deja leer el mensaje y pasa al seguimiento de traslados.
+    setTimeout(() => { window.location.href = 'traslados.php'; }, 1200);
+  } catch (error) {
+    mensajeFormulario.textContent = error.message;
+    botonRegistrar.disabled = false;
+  }
+});
+
+botonCancelar.addEventListener('click', () => {
+  window.location.href = 'traslados.php';
+});

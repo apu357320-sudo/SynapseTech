@@ -3,56 +3,54 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hospital de Clínicas - Pacientes</title>
+    <title>Documentos para pacientes | Hospital de Clínicas</title>
     <link rel="stylesheet" href="../estilo/pacientes.css">
+    <link rel="stylesheet" href="../estilo/documentos.css">
 </head>
-<body>
-   <header>
+<!-- Vista pública para pacientes: se abre desde el celular con el código QR, sin iniciar sesión -->
+<body class="documentos-page">
+    <header>
+      <a href="paciente.html" class="enlace-logo" aria-label="Ir al inicio de pacientes">
+        <img src="../logo.svg" alt="Logo del Hospital de Clínicas" class="logo">
+      </a>
       <div>
-          <a href="../index.html" class="enlace-logo" aria-label="Ir a la página inicial">
-            <img src="../logo.svg" alt="Logo del Hospital de Clínicas" class="logo">
-          </a>
-         <div>
         <h1>Hospital de Clínicas Dr. Manuel Quintela</h1>
-        <p>Sistema Informático de Gestión de Servicios Médicos</p>
+        <p>Información para pacientes</p>
       </div>
     </header>
-     <main style="text-align:center;">
 
-      <section aria-labelledby="titulo-login">
-        <h2 id="titulo-login">Inicio de Sesión</h2>
-        <p>Acceso exclusivo para Pacientes del Hospital de Clínicas.</p>
+    <main>
+      <section class="tarjeta" aria-labelledby="titulo-documentos">
+        <h2 id="titulo-documentos">Documentos</h2>
+        <p>Elige una categoría y luego el documento que quieres leer.</p>
 
-     <form action="../admin/contacto.html" method="get">
-          <label for="usuariopaciente">C.I.</label>
-          <input type="text" id="usuariopaciente" name="usuariopaciente" autocomplete="username" />
+        <label for="filtroCategoria">Categoría</label>
+        <select id="filtroCategoria">
+          <option value="">Todas</option>
+        </select>
 
-          <label for="password">Contraseña</label>
-          <input type="password" id="password" name="password" autocomplete="current-password" />
+        <label for="listaDocumentos">Documento</label>
+        <select id="listaDocumentos"></select>
+        <p id="mensajeDocumentos" class="mensaje" role="alert"></p>
 
-          <button type="submit">Ingresar</button>
-           <button type="button">Olvidé mi contraseña</button>
-
-        </form>
+        <a id="enlaceDocumento" class="boton-principal" target="_blank" rel="noopener">Abrir el documento</a>
+        <iframe id="vistaDocumento" title="Vista previa del documento"></iframe>
+        <img id="vistaImagen" alt="Vista previa del documento">
       </section>
-      <section aria-labelledby="titulo-pacientes">
-        <h2 id="titulo-pacientes">Acceso para pacientes</h2>
-        <p>
-          Escaneá el código QR para consultar documentación médica o completar
-          encuestas de satisfacción.
-        </p>
 
-        <div>
-          <img src="" alt="Código QR de encuestas para pacientes" />
-        </div>
-
+      <section class="tarjeta" aria-labelledby="titulo-encuesta">
+        <h2 id="titulo-encuesta">Encuesta de satisfacción</h2>
+        <p>Tu opinión nos ayuda a mejorar. Es anónima y lleva un minuto.</p>
+        <a href="encuesta.html" class="boton-principal">Completar la encuesta</a>
       </section>
-      </main>
-      <footer style="text-align:center;">
+    </main>
+
+    <footer>
       <p>Hospital de Clínicas</p>
       <p>Instituto Tecnológico Superior de Paysandú - ITSP</p>
-      <p> © 2026 Hospital de Clínicas. Todos los derechos reservados.</p>
+      <p>© 2026 Hospital de Clínicas. Todos los derechos reservados.</p>
     </footer>
 
+    <script src="../js/documentos.js"></script>
 </body>
 </html>

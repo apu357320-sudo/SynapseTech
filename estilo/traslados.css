@@ -1,23 +1,11 @@
-.traslado-form-page header h1,
-.seguimiento-traslados header h1 {
-  margin: 0;
-  font-size: 1.4rem;
-  color: #0057a3;
-}
-
-.traslado-form-page header p {
-  margin: 5px 0 0;
-  font-size: 0.9rem;
-  color: #555;
-}
-
+/* ===== Formulario de traslado ===== */
 .traslado-form-page main {
   max-width: 100%;
 }
 
 .traslado-form-page .tarjeta {
   width: 100%;
-  max-width: 700px;
+  max-width: 720px;
   text-align: left;
 }
 
@@ -31,7 +19,7 @@
 .traslado-form-page .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 15px;
+  column-gap: 16px;
 }
 
 .traslado-form-page .form-grid .full {
@@ -47,47 +35,45 @@
   flex: 1;
 }
 
-.traslado-form-page label {
-  display: block;
-  margin: 10px 0 5px;
-  font-weight: bold;
-}
-
-.traslado-form-page input,
-.traslado-form-page select {
-  width: 100%;
+.traslado-form-page .ci-row .boton-secundario {
+  margin: 0;
+  padding: 8px 14px;
+  border: 1px solid #1f5c4a;
+  text-decoration: none;
 }
 
 .traslado-form-page .error {
   display: block;
   margin-top: 4px;
-  color: #d32f2f;
-  font-size: 0.85rem;
+  color: #a3271f;
+  font-size: 0.82rem;
 }
 
+/* Cada fieldset es un recuadro de la ficha, con el título sobre el borde */
 .traslado-form-page fieldset {
   margin: 0;
-  padding: 0;
-  border: 0;
+  padding: 6px 16px 16px 16px;
+  border: 1px solid #c9c2ae;
 }
 
 .traslado-form-page legend {
-  margin-bottom: 8px;
-  font-weight: 700;
+  padding: 0 8px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #1f5c4a;
 }
 
 .traslado-form-page fieldset.traslado-datos {
-  margin-top: 18px;
+  margin-top: 20px;
 }
 
-.traslado-form-page .ubicacion-traslado {
-  margin-top: 18px;
-}
-
+/* ===== Mapa ===== */
 .traslado-form-page .mapa-instruccion {
-  margin: 0 0 12px;
-  color: #555;
-  line-height: 1.45;
+  margin: 16px 0 10px 0;
+  font-size: 0.9rem;
+  color: #5f6a63;
 }
 
 .traslado-form-page .mapa-controles {
@@ -99,72 +85,116 @@
 
 .traslado-form-page .mapa-controles .boton-secundario {
   margin: 0;
-  padding: 8px 12px;
-  border: 1px solid #0057a3;
-  border-radius: 5px;
+  padding: 7px 12px;
+  border: 1px solid #1f5c4a;
+  text-decoration: none;
 }
 
+/* El botón de la ubicación que se está marcando */
 .traslado-form-page .mapa-controles .boton-secundario[aria-pressed="true"] {
-  background-color: #0057a3;
-  color: #fff;
+  background-color: #1f5c4a;
+  color: #ffffff;
 }
 
 .traslado-form-page .mapa-traslado {
   width: 100%;
   height: 420px;
-  border: 1px solid #dfe5eb;
-  border-radius: 5px;
-  background-color: #eaf3fb;
+  border: 1px solid #9aa39c;
+  background-color: #e4eee9;
   z-index: 0;
 }
 
+/* Marcadores del mapa: un círculo con la letra O (origen) o D (destino) */
+.traslado-form-page .marcador {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.traslado-form-page .marcador-origen {
+  background-color: #1f5c4a;
+}
+
+.traslado-form-page .marcador-destino {
+  background-color: #a3271f;
+}
+
 .traslado-form-page .estado-mapa {
-  margin: 8px 0 0;
-  color: #555;
-  font-size: 0.9rem;
+  margin: 8px 0 0 0;
+  font-size: 0.85rem;
+  color: #5f6a63;
 }
 
 .traslado-form-page .botones-contenedor {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 12px;
+  align-items: center;
+  gap: 14px;
   margin-top: 20px;
 }
 
+.traslado-form-page .botones-contenedor .boton-principal,
+.traslado-form-page .botones-contenedor .boton-secundario {
+  margin-top: 0;
+}
+
+.traslado-form-page .mensaje {
+  text-align: right;
+}
+
+/* ===== Seguimiento de traslados ===== */
 .seguimiento-traslados main {
   max-width: 1200px;
+  align-items: center;
+}
+
+/* Los dos enlaces de abajo de la tabla quedan a la misma altura */
+.seguimiento-traslados .boton-principal,
+.seguimiento-traslados .boton-secundario {
+  margin-top: 0;
 }
 
 .tabla-traslados {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
+  font-size: 0.92rem;
 }
 
 .tabla-traslados th,
 .tabla-traslados td {
-  padding: 12px 14px;
-  border-bottom: 1px solid #dfe5eb;
+  padding: 10px 12px;
+  border: 1px solid #c9c2ae;
   vertical-align: middle;
 }
 
 .tabla-traslados th {
-  background-color: #0057a3;
-  color: #fff;
+  background-color: #e9e4d4;
+  color: #153f33;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
   white-space: nowrap;
 }
 
 .tabla-traslados tbody tr:nth-child(even) {
-  background-color: #f5f8fb;
+  background-color: #f8f5ec;
 }
 
 .tabla-traslados button {
-  margin: 3px 4px 3px 0;
+  margin: 0;
 }
 
 .tabla-traslados select {
   min-width: 130px;
+  padding: 6px 8px;
+  font-size: 0.9rem;
 }
 
 .acciones-traslado {
@@ -174,19 +204,28 @@
   gap: 8px;
 }
 
-.acciones-traslado button {
-  padding: 8px 10px;
-  border: 1px solid #0057a3;
-  border-radius: 5px;
-  background-color: #fff;
-  color: #0057a3;
-  cursor: pointer;
+.acciones-traslado select {
+  width: auto;
 }
 
-.acciones-traslado button:hover {
-  background-color: #eaf3fb;
+/* Traslado cerrado (finalizado o cancelado): sus controles quedan apagados */
+.acciones-traslado button:disabled,
+.acciones-traslado select:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 
+/* Filtro del historial */
+.filtro-traslados {
+  max-width: 360px;
+  margin-bottom: 6px;
+}
+
+.seguimiento-traslados .panel label {
+  margin-top: 0;
+}
+
+/* ===== Pantallas chicas ===== */
 @media (max-width: 600px) {
   .traslado-form-page .form-grid {
     grid-template-columns: 1fr;

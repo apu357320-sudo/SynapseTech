@@ -35,6 +35,8 @@ if ($password !== '') {
 }
 
 if (!$stmt->execute()) {
-    responder(['exito' => false, 'mensaje' => 'No se pudo actualizar el usuario.'], 422);
+    // 1062: el email ya lo usa otro usuario (la columna es UNIQUE).
+    $mensaje = $stmt->errno === 1062 ? 'Ese email ya lo usa otro usuario.' : 'No se pudo actualizar el usuario.';
+    responder(['exito' => false, 'mensaje' => $mensaje], 422);
 }
 responder(['exito' => true, 'mensaje' => 'Usuario actualizado correctamente.']);

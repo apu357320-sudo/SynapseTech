@@ -6,7 +6,7 @@ exigirSesion(true);
 $id = (int) ($_POST['id'] ?? 0);
 $titulo = limpiar($_POST['titulo'] ?? '');
 if ($id < 1 || $titulo === '') {
-    responder(['exito' => false, 'mensaje' => 'Indicá un título válido.'], 422);
+    responder(['exito' => false, 'mensaje' => 'Indica un título válido.'], 422);
 }
 
 $stmt = $conn->prepare('UPDATE documento SET titulo = ? WHERE id_documento = ?');

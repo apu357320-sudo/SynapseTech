@@ -1,5 +1,8 @@
+// Seguimiento de traslados (admin/traslados.php): listado, filtro y cambio de estado.
+
 const listaTraslados = document.getElementById('listaTraslados');
 const mensajeTraslado = document.getElementById('mensajeTraslado');
+const filtroTraslados = document.getElementById('filtroTraslados');
 const estadosTraslado = ['Solicitado', 'En camino', 'En destino', 'Retornando', 'Finalizado'];
 
 async function enviarTraslado(url, datos) {
@@ -15,9 +18,30 @@ function agregarCelda(fila, valor) {
   fila.appendChild(celda);
 }
 
+// Pasa "2026-10-20 08:30:00" (formato de MySQL) a "20/10/2026 08:30".
+function formatearFecha(fecha) {
+  if (!fecha) return '';
+  const [dia, hora] = fecha.split(' ');
+  const [anio, mes, numeroDia] = dia.split('-');
+  return `${numeroDia}/${mes}/${anio} ${hora.slice(0, 5)}`;
+}
+
+// Muestra solo las filas cuyo paciente o vehículo contiene el texto buscado.
+function filtrarTraslados() {
+  const texto = filtroTraslados.value.trim().toLowerCase();
+  listaTraslados.querySelectorAll('tr').forEach((fila) => {
+    const coincide = !fila.dataset.busqueda || fila.dataset.busqueda.includes(texto);
+    fila.style.display = coincide ? '' : 'none';
+  });
+}
+
 function crearFila(traslado) {
   const fila = document.createElement('tr');
+  // Texto en minúsculas por el que se puede buscar esta fila desde el filtro.
+  fila.dataset.busqueda = `${traslado.paciente_nombre} ${traslado.paciente_ci} ${traslado.matricula}`.toLowerCase();
   agregarCelda(fila, traslado.paciente_nombre || traslado.paciente_ci);
+  agregarCelda(fila, traslado.matricula);
+  agregarCelda(fila, formatearFecha(traslado.hora_salida));
   agregarCelda(fila, traslado.origen);
   agregarCelda(fila, traslado.destino);
   agregarCelda(fila, traslado.chofer);
@@ -48,7 +72,12 @@ function crearFila(traslado) {
   botonCancelar.type = 'button';
   botonCancelar.dataset.cancelar = traslado.id;
   botonCancelar.textContent = 'Cancelar';
-  botonCancelar.disabled = traslado.estado === 'Finalizado' || traslado.estado === 'Cancelado';
+
+  // Un traslado finalizado o cancelado ya está cerrado: no se puede cambiar.
+  const cerrado = traslado.estado === 'Finalizado' || traslado.estado === 'Cancelado';
+  selectorEstado.disabled = cerrado;
+  botonActualizar.disabled = cerrado;
+  botonCancelar.disabled = cerrado;
 
   acciones.append(selectorEstado, botonActualizar, botonCancelar);
   celdaAcciones.appendChild(acciones);
@@ -65,7 +94,7 @@ async function cargarTraslados() {
   if (!resultado.traslados.length) {
     const fila = document.createElement('tr');
     const celda = document.createElement('td');
-    celda.colSpan = 7;
+    celda.colSpan = 9;
     celda.textContent = 'No hay traslados para mostrar.';
     fila.appendChild(celda);
     listaTraslados.appendChild(fila);
@@ -73,7 +102,10 @@ async function cargarTraslados() {
   }
 
   resultado.traslados.forEach((traslado) => listaTraslados.appendChild(crearFila(traslado)));
+  filtrarTraslados(); // mantiene el filtro después de recargar la tabla
 }
+
+filtroTraslados.addEventListener('input', filtrarTraslados);
 
 listaTraslados?.addEventListener('click', async (evento) => {
   const boton = evento.target.closest('button');
@@ -88,9 +120,11 @@ listaTraslados?.addEventListener('click', async (evento) => {
       datos.append('estado', fila.querySelector('[data-estado]').value);
       const resultado = await enviarTraslado('../php/actualizarTraslado.php', datos);
       mensajeTraslado.textContent = resultado.mensaje;
-    } else if (boton.dataset.cancelar && window.confirm('¿Querés cancelar este traslado?')) {
+      mensajeTraslado.className = 'mensaje exito';
+    } else if (boton.dataset.cancelar && window.confirm('¿Quieres cancelar este traslado?')) {
       const resultado = await enviarTraslado('../php/eliminarTraslado.php', datos);
       mensajeTraslado.textContent = resultado.mensaje;
+      mensajeTraslado.className = 'mensaje exito';
     } else {
       return;
     }
@@ -98,6 +132,7 @@ listaTraslados?.addEventListener('click', async (evento) => {
     await cargarTraslados();
   } catch (error) {
     mensajeTraslado.textContent = error.message;
+    mensajeTraslado.className = 'mensaje';
   }
 });
 

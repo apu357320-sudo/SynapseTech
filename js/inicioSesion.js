@@ -20,6 +20,6 @@ formularioLogin.addEventListener('submit', async (evento) => {
     mensajeLogin.textContent = datos.mensaje;
     if (datos.exito) window.location.href = datos.redireccion;
   } catch (error) {
-    mensajeLogin.textContent = 'Abre el sitio desde http://localhost/SynapseTech/SynapseTech/index.html usando Apache de XAMPP. No uses Live Server.';
+    mensajeLogin.textContent = 'No se pudo contactar con el servidor. Abre el sitio desde http://localhost/synapsetech/ con Apache de XAMPP encendido (no con Live Server).';
   }
 });

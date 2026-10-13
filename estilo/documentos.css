@@ -1,3 +1,4 @@
+/* ===== Carga y vista de documentos ===== */
 .documentos-page main {
   max-width: 1000px;
 }
@@ -6,19 +7,29 @@
   text-align: left;
 }
 
+/* En la vista de pacientes las tarjetas son más anchas para leer el documento */
+.documentos-page .tarjeta {
+  width: 100%;
+  max-width: 640px;
+}
+
+.documentos-page #enlaceDocumento {
+  margin-bottom: 16px;
+}
+
 .documentos-page #listaDocumentos {
   width: 100%;
   margin-bottom: 16px;
 }
 
+/* La vista previa arranca oculta: la muestra documentos.js */
 .documentos-page #vistaDocumento,
 .documentos-page #vistaImagen {
   display: none;
   width: 100%;
   min-height: 420px;
-  border: 1px solid #dfe5eb;
-  border-radius: 5px;
-  background-color: #f5f8fb;
+  border: 1px solid #c9c2ae;
+  background-color: #ffffff;
 }
 
 .documentos-page #vistaImagen {
@@ -27,6 +38,7 @@
   object-fit: contain;
 }
 
+/* ===== Pantallas chicas ===== */
 @media (max-width: 600px) {
   .documentos-page #vistaDocumento {
     min-height: 320px;

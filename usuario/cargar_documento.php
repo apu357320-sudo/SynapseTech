@@ -1,9 +1,6 @@
 <?php
 require_once __DIR__ . '/../php/sesion.php';
-if (empty($_SESSION['usuario'])) {
-    header('Location: ../index.html');
-    exit;
-}
+exigirSesionPagina(); // cualquier usuario con sesión iniciada
 ?>
 <!doctype html>
 <html lang="es">
@@ -16,9 +13,11 @@ if (empty($_SESSION['usuario'])) {
   </head>
   <body class="documentos-page">
     <header>
-      <a href="../index.html" class="enlace-logo" aria-label="Ir a la página inicial"><img src="../logo.svg" alt="Logo del Hospital de Clínicas" class="logo"></a>
-      <h1>Cargar un documento</h1>
-      <p>Documentación clínica y administrativa</p>
+      <a href="index.php" class="enlace-logo" aria-label="Ir al panel"><img src="../logo.svg" alt="Logo del Hospital de Clínicas" class="logo"></a>
+      <div>
+        <h1>Cargar un documento</h1>
+        <p>Documentación clínica y administrativa</p>
+      </div>
     </header>
     <main>
       <section class="panel">
@@ -26,22 +25,33 @@ if (empty($_SESSION['usuario'])) {
           <label for="titulo">Título</label>
           <input id="titulo" name="titulo" required>
 
+          <!-- Las categorías las carga documentos.js desde la base de datos -->
+          <label for="categoria">Categoría</label>
+          <select id="categoria" name="id_categoria" required>
+            <option value="">Seleccionar</option>
+          </select>
+
           <label for="archivo">Archivo</label>
           <input id="archivo" name="archivo" type="file" accept=".pdf,.jpg,.jpeg,.png,.gif,.doc,.docx" required>
 
-          <button type="submit">Cargar el documento</button>
+          <button type="submit" class="boton-principal">Cargar el documento</button>
           <p id="mensajeDocumentos" class="mensaje" role="alert"></p>
         </form>
       </section>
 
       <section class="panel">
         <h2>Documentos disponibles</h2>
-        <select id="listaDocumentos" aria-label="Seleccioná un documento"></select>
+        <label for="filtroCategoria">Filtrar por categoría</label>
+        <select id="filtroCategoria">
+          <option value="">Todas</option>
+        </select>
+        <label for="listaDocumentos">Documento</label>
+        <select id="listaDocumentos"></select>
         <iframe id="vistaDocumento" title="Vista previa del documento"></iframe>
         <img id="vistaImagen" alt="Vista previa del documento">
       </section>
 
-      <a class="boton boton-secundario" href="index.php">Volver</a>
+      <a class="boton-secundario" href="index.php">Volver</a>
     </main>
     <script src="../js/documentos.js"></script>
   </body>

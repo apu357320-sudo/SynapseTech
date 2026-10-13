@@ -223,7 +223,11 @@ INSERT INTO `pregunta` (`id_pregunta`, `id_encuesta`, `texto_pregunta`) VALUES
 CREATE TABLE `traslado` (
   `id_traslado` int(10) UNSIGNED NOT NULL,
   `origen` varchar(150) NOT NULL,
+  `origen_lat` decimal(9,6) DEFAULT NULL,
+  `origen_lng` decimal(9,6) DEFAULT NULL,
   `destino` varchar(150) NOT NULL,
+  `destino_lat` decimal(9,6) DEFAULT NULL,
+  `destino_lng` decimal(9,6) DEFAULT NULL,
   `hora_salida` datetime NOT NULL,
   `hora_llegada_estimada` datetime DEFAULT NULL,
   `hora_llegada_efectiva` datetime DEFAULT NULL,

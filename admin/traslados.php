@@ -1,28 +1,41 @@
 <?php
 require_once __DIR__ . '/../php/sesion.php';
-if (empty($_SESSION['usuario'])) { header('Location: ../index.html'); exit; }
-if ($_SESSION['rol'] !== 'Administrador') { header('Location: ../usuario/index.php'); exit; }
+exigirSesionPagina(true); // solo administradores
 ?>
 <!doctype html>
 <html lang="es">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Seguimiento de traslados</title>
+		<title>Seguimiento de traslados | Hospital de Clínicas</title>
 		<link rel="stylesheet" href="../estilo/style.css">
 		<link rel="stylesheet" href="../estilo/traslados.css">
 	</head>
 	<body class="seguimiento-traslados">
-				<header><a href="../index.html" class="enlace-logo" aria-label="Ir a la página inicial"><img src="../logo.svg" alt="Logo del Hospital de Clínicas" class="logo"></a><h1>Seguimiento de traslados</h1></header>
+		<header>
+			<a href="index.php" class="enlace-logo" aria-label="Ir al panel de administración"><img src="../logo.svg" alt="Logo del Hospital de Clínicas" class="logo"></a>
+			<div>
+				<h1>Seguimiento de traslados</h1>
+				<p>Hospital de Clínicas</p>
+			</div>
+		</header>
 		<main>
-				<section class="panel">
+			<section class="panel">
+				<!-- Filtro del historial: lo usa traslado.js para ocultar las filas que no coinciden -->
+				<label for="filtroTraslados">Filtrar por paciente o vehículo</label>
+				<input type="search" id="filtroTraslados" class="filtro-traslados" placeholder="Nombre, cédula o matrícula">
 				<p id="mensajeTraslado" class="mensaje"></p>
-				<div style="overflow-x:auto">
-					<table class="tabla-traslados"><thead><tr><th>Paciente</th><th>Origen</th><th>Destino</th><th>Chofer</th><th>Enfermero</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="listaTraslados"></tbody></table>
+				<div class="tabla-contenedor">
+					<table class="tabla-traslados">
+						<thead>
+							<tr><th>Paciente</th><th>Vehículo</th><th>Salida</th><th>Origen</th><th>Destino</th><th>Chofer</th><th>Enfermero</th><th>Estado</th><th>Acciones</th></tr>
+						</thead>
+						<tbody id="listaTraslados"></tbody>
+					</table>
 				</div>
 			</section>
-			<a class="boton boton-secundario" href="traslado_form.php">Creá un traslado</a>
-			<a class="boton boton-secundario" href="index.php">Volvé</a>
+			<a class="boton-principal" href="traslado_form.php">Crear un traslado</a>
+			<a class="boton-secundario" href="index.php">Volver</a>
 		</main>
 		<script src="../js/traslado.js"></script>
 	</body>

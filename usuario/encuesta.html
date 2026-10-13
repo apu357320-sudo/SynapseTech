@@ -2,13 +2,72 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
-	<title>Encuesta de satisfacción</title>
-	<link rel="stylesheet" href="../estilo/style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Encuesta de satisfacción | Hospital de Clínicas</title>
+	<link rel="stylesheet" href="../estilo/pacientes.css">
 </head>
-<body>
+<!-- Encuesta anónima para pacientes: no pide sesión ni datos personales -->
+<body class="encuesta-page">
 	<header>
-		<a href="../index.html" class="enlace-logo" aria-label="Ir a la página inicial"><img src="../logo.svg" alt="Logo del Hospital de Clínicas" class="logo"></a>
-		<h1>Encuesta de satisfacción</h1>
+		<a href="paciente.html" class="enlace-logo" aria-label="Ir al inicio de pacientes"><img src="../logo.svg" alt="Logo del Hospital de Clínicas" class="logo"></a>
+		<div>
+			<h1>Encuesta de satisfacción</h1>
+			<p>Hospital de Clínicas</p>
+		</div>
 	</header>
+
+	<main>
+		<section class="tarjeta">
+			<h2>Tu opinión</h2>
+			<p>La encuesta es anónima: no guardamos tu nombre ni tu cédula.</p>
+
+			<form id="formularioEncuesta" novalidate>
+				<label for="servicio">Servicio evaluado</label>
+				<select id="servicio" name="servicio" required>
+					<option value="">Seleccionar</option>
+					<option>Nefrología</option>
+					<option>Imagenología</option>
+					<option>Cardiología</option>
+					<option>Urología</option>
+					<option>Ginecología</option>
+					<option>Otro</option>
+				</select>
+
+				<fieldset>
+					<legend>Calificación de la atención</legend>
+					<div class="opciones">
+						<label><input type="radio" name="calificacion" value="1"> 1</label>
+						<label><input type="radio" name="calificacion" value="2"> 2</label>
+						<label><input type="radio" name="calificacion" value="3"> 3</label>
+						<label><input type="radio" name="calificacion" value="4"> 4</label>
+						<label><input type="radio" name="calificacion" value="5"> 5</label>
+					</div>
+					<p class="ayuda">1 es muy mala y 5 es muy buena.</p>
+				</fieldset>
+
+				<fieldset>
+					<legend>¿La información del QR fue clara?</legend>
+					<div class="opciones">
+						<label><input type="radio" name="claridad" value="Sí"> Sí</label>
+						<label><input type="radio" name="claridad" value="No"> No</label>
+					</div>
+				</fieldset>
+
+				<label for="comentario">Comentarios o sugerencias (opcional)</label>
+				<textarea id="comentario" name="comentario" rows="4" maxlength="500"></textarea>
+
+				<button type="submit" class="boton-principal">Enviar la encuesta</button>
+			</form>
+			<p id="mensajeEncuesta" class="mensaje" role="alert"></p>
+			<a href="paciente.html" class="boton-secundario">Volver a los documentos</a>
+		</section>
+	</main>
+
+	<footer>
+		<p>Hospital de Clínicas</p>
+		<p>Instituto Tecnológico Superior de Paysandú - ITSP</p>
+	</footer>
+
+	<script src="../js/encuestas.js"></script>
 </body>
 </html>

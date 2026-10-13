@@ -1,7 +1,9 @@
 <?php
 require_once __DIR__ . '/conexion.php';
 
-$conteo = $conn->query('SELECT COUNT(*) AS total FROM usuario')->fetch_assoc();
+// Solo se permite si todavía no hay ningún administrador (id_rol = 1).
+// No alcanza con contar usuarios: los datos de prueba cargan choferes y enfermeros.
+$conteo = $conn->query('SELECT COUNT(*) AS total FROM usuario WHERE id_rol = 1')->fetch_assoc();
 if ((int) $conteo['total'] > 0) {
     responder(['exito' => false, 'mensaje' => 'La configuración inicial ya fue realizada.'], 403);
 }
@@ -12,7 +14,7 @@ $email = limpiar($_POST['email'] ?? '');
 $numeroId = limpiar($_POST['numeroId'] ?? '');
 
 if ($password === '' || $nombreCompleto === '' || $email === '' || $numeroId === '') {
-    responder(['exito' => false, 'mensaje' => 'Completá todos los campos.'], 422);
+    responder(['exito' => false, 'mensaje' => 'Completa todos los campos.'], 422);
 }
 
 $hash = password_hash($password, PASSWORD_DEFAULT);
@@ -25,4 +27,4 @@ $stmt->bind_param('sssssi', $numeroId, $nombre, $apellido, $email, $hash, $idRol
 if (!$stmt->execute()) {
     responder(['exito' => false, 'mensaje' => 'No se pudo crear el administrador.'], 422);
 }
-responder(['exito' => true, 'mensaje' => 'Administrador creado. Ya podés iniciar sesión.']);
+responder(['exito' => true, 'mensaje' => 'Administrador creado. Ya puedes iniciar sesión.']);
